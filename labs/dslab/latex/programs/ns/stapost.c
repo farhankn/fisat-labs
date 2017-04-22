@@ -1,0 +1,135 @@
+//Program to convert an infix expression to postfix.
+#include<stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+
+int top=-1;
+char infix[50],stack[50],post[50];
+void push(char ele);
+char pop();
+int isp(char ch);
+int icp(char c);
+void main()
+{
+  int i=0,j=0,k=0;
+  char item,x;
+  printf("Enter the infix expression:");
+  scanf("%s",infix);
+  push('(');
+  while(infix[k]!='\0')  //length
+    k++;
+  infix[k]=')';
+  infix[k+1]='\0';
+  while(infix[i]!='\0')
+    {
+      while(top>-1)
+	{
+	  item=infix[i++];
+	  if(isalnum(item))
+	    {
+	      post[j]=item;
+	      j++;
+	    }
+	  else if(item==')')
+	    {
+	      x=pop();
+	      while(x!='(')
+		{
+		  post[j]=x;
+		  j++;
+		  x=pop();
+		}
+	    }
+	  else if(isp(stack[top])>=icp(item))
+	    {
+	      x=pop();
+	      while(isp(x)>=icp(item))
+		{
+		  post[j]=x;
+		  j++;
+		  x=pop();
+		}
+	      push(x);
+	      push(item);
+	    }
+	  else if(isp(stack[top])<icp(item))
+	      {
+		push(item);
+	      }
+	  else
+	    printf("Invalid expression.\n");
+	}
+    }
+  post[j]='\0';
+  printf("The postfix expression is as follows:\n");
+  __fpurge(stdin);
+  puts(post);
+}
+
+//Function to push elements.
+void push(char ele)
+{
+  if(top>50)
+    printf("Stack overflow!!\n");
+  else
+    {
+      top++;
+      stack[top]=ele;
+      
+    }
+}
+
+//Function to pop elements.
+char pop()
+{
+  char ele;
+  if(top<-1)
+    printf("Stack underflow!!\n");
+  else
+    {
+      ele=stack[top];
+      top--;
+      return ele;
+    }
+}
+
+//ISP
+int isp(char ch)
+{
+  switch(ch)
+    {
+    case '^':return 3;
+      break;
+    case '*':return 2;
+	  break;
+    case '/':return 2;
+      break;
+    case '+':return 1;
+      break;
+    case '-':return 1;
+      break;
+    case '(':return 0;
+      break;	
+    } 
+}
+
+//ICP
+int icp(char c)
+{
+  switch(c)
+    {
+    case '^':return 4;
+      break;
+    case '*':return 2;
+      break;
+    case '/':return 2;
+      break;
+    case '+':return 1;
+      break;
+    case '-':return 1;
+      break;
+    case '(':return 4;
+      break;	
+    }
+}
+

@@ -1,0 +1,323 @@
+\documentclass[pdftex,12pt,a4paper]{report}
+\usepackage{graphicx}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{color}
+\usepackage{fancyhdr}
+\usepackage{array}
+%\usepackage{titlesec}
+%\usepackage{lipsum}
+%\usepackage[printwatermark]{xwatermark}
+%\usepackage{xcolor}
+%\usepackage{tikz}
+
+%\titleformat{\section}[block]{\normalfont\Large\bfseries\filcenter}{\thesection}{1em}{}
+\setlength{\headheight}{25.2pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\pagestyle{fancy}
+\lhead{\bf \large{ Data Structures Lab}}
+\rhead{\bf \large{ /*Mohammed Farhan K N\\ S4 CSE*/}}
+%\lfoot{\bf \footnotesize {Mithun A V, Merin Cherian, Divya T V}}
+%\rfoot{\bf \footnotesize {Meenu Mathew, Siyamol C, Lino M}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\renewcommand{\thesection}{\arabic{section}}
+\lstset{
+language=sh,                % choose the language of the code
+%numbers=left,                   % where to put the line-numbers
+stepnumber=1,                   % the step between two line-numbers.        
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+tabsize=2,                      % sets default tabsize to 2 spaces
+captionpos=false,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+title=\lstname,                 % show the filename of files included with \lstinputlisting;
+}
+%
+%\newsavebox\mybox
+%\savebox\mybox{\tikz[color=red,opacity=0.3]\node{FISAT};}
+
+
+\begin{document}
+\section*{Operations in a Singly Linked list}
+\lstinputlisting{./programs/1/13-singlelst.c}
+\subsection*{Output}
+\begin{lstlisting}
+ Menu:
+ 1 Insert at Beginning
+ 2 Insert at End
+ 3 Insert at a Position
+ 4 Delete from Beginning
+ 5 Delete from End
+ 6 Delete from a Position
+ 7 Display
+ 8 Exit
+ Enter your choice:1
+
+Enter the element to be inserted: 1
+
+Menu:
+ 1 Insert at Beginning
+ 2 Insert at End
+ 3 Insert at a Position
+ 4 Delete from Beginning
+ 5 Delete from End
+ 6 Delete from a Position
+ 7 Display
+ 8 Exit
+ Enter your choice:1
+
+Enter the element to be inserted: 2
+
+Menu:
+ 1 Insert at Beginning
+ 2 Insert at End
+ 3 Insert at a Position
+ 4 Delete from Beginning
+ 5 Delete from End
+ 6 Delete from a Position
+ 7 Display
+ 8 Exit
+ Enter your choice:1
+
+Enter the element to be inserted: 3
+
+Menu:
+ 1 Insert at Beginning
+ 2 Insert at End
+ 3 Insert at a Position
+ 4 Delete from Beginning
+ 5 Delete from End
+ 6 Delete from a Position
+ 7 Display
+ 8 Exit
+ Enter your choice:7
+
+The elements in the linked list are:
+ 3  2  1 
+
+Menu:
+ 1 Insert at Beginning
+ 2 Insert at End
+ 3 Insert at a Position
+ 4 Delete from Beginning
+ 5 Delete from End
+ 6 Delete from a Position
+ 7 Display
+ 8 Exit
+ Enter your choice:6
+
+Enter the position	2
+
+the deleted element is 2
+
+Menu:
+ 1 Insert at Beginning
+ 2 Insert at End
+ 3 Insert at a Position
+ 4 Delete from Beginning
+ 5 Delete from End
+ 6 Delete from a Position
+ 7 Display
+ 8 Exit
+ Enter your choice:5
+
+The deleted element is 1
+
+Menu:
+ 1 Insert at Beginning
+ 2 Insert at End
+ 3 Insert at a Position
+ 4 Delete from Beginning
+ 5 Delete from End
+ 6 Delete from a Position
+ 7 Display
+ 8 Exit
+ Enter your choice:3
+
+Enter the position: 1
+
+Enter the element to be inserted: 6
+
+Menu:
+ 1 Insert at Beginning
+ 2 Insert at End
+ 3 Insert at a Position
+ 4 Delete from Beginning
+ 5 Delete from End
+ 6 Delete from a Position
+ 7 Display
+ 8 Exit
+ Enter your choice:7
+
+The elements in the linked list are:
+ 6  3 
+
+Menu:
+ 1 Insert at Beginning
+ 2 Insert at End
+ 3 Insert at a Position
+ 4 Delete from Beginning
+ 5 Delete from End
+ 6 Delete from a Position
+ 7 Display
+ 8 Exit
+ Enter your choice:8
+
+\end{lstlisting}
+
+
+
+
+\newpage
+
+\begin{document}
+\section*{Linked list as a Stack}
+\lstinputlisting{./programs/1/14-linkedstack.c}
+\subsection*{Output}
+\begin{lstlisting}
+Menu:
+ 1 Push
+ 2 Pop
+ 3 Display
+ 4 Exit
+ Enter your choice:1
+
+Enter the element to be inserted: 1
+
+Menu:
+ 1 Push
+ 2 Pop
+ 3 Display
+ 4 Exit
+ Enter your choice:1
+
+Enter the element to be inserted: 2
+
+Menu:
+ 1 Push
+ 2 Pop
+ 3 Display
+ 4 Exit
+ Enter your choice:1
+
+Enter the element to be inserted: 3
+
+Menu:
+ 1 Push
+ 2 Pop
+ 3 Display
+ 4 Exit
+ Enter your choice:2
+
+The deleted element is 3
+
+Menu:
+ 1 Push
+ 2 Pop
+ 3 Display
+ 4 Exit
+ Enter your choice:3
+
+The elements in the stack are:
+ 2  1 
+
+Menu:
+ 1 Push
+ 2 Pop
+ 3 Display
+ 4 Exit
+ Enter your choice:2
+
+The deleted element is 2
+
+Menu:
+ 1 Push
+ 2 Pop
+ 3 Display
+ 4 Exit
+ Enter your choice:3
+
+The elements in the stack are:
+ 1 
+
+Menu:
+ 1 Push
+ 2 Pop
+ 3 Display
+ 4 Exit
+ Enter your choice:4
+
+\end{lstlisting}
+
+
+
+
+\newpage
+
+\begin{document}
+\section*{queue using singly linked list}
+\lstinputlisting{./programs/1/16-linkedqueue.c}
+\subsection*{Output}
+\begin{lstlisting}
+Menu 
+ 1 Insert 
+ 2 Delete 
+ 3 Display 
+ 4 Exit
+ Enter your choice 1
+
+Enter the element to be inserted: 1
+
+Menu 
+ 1 Insert 
+ 2 Delete 
+ 3 Display 
+ 4 Exit
+ Enter your choice 1
+
+Enter the element to be inserted: 2
+
+Menu 
+ 1 Insert 
+ 2 Delete 
+ 3 Display 
+ 4 Exit
+ Enter your choice 3
+
+The elements in the linked list are:
+ 1  2 
+
+Menu 
+ 1 Insert 
+ 2 Delete 
+ 3 Display 
+ 4 Exit
+ Enter your choice 2
+
+The deleted element is 1
+
+Menu 
+ 1 Insert 
+ 2 Delete 
+ 3 Display 
+ 4 Exit
+ Enter your choice 3
+
+The elements in the linked list are:
+ 2 
+
+Menu 
+ 1 Insert 
+ 2 Delete 
+ 3 Display 
+ 4 Exit
+ Enter your choice 4
+
+\end{lstlisting}
+
+\end{document}

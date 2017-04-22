@@ -1,0 +1,47 @@
+LINE 
+
+Main menu
+1.Line reflections
+2.Polygon reflections
+Enter the choice 1
+Enter the line coordinates(xa,ya,xb,yb) : 10
+10
+10
+70
+MENU
+1.Reflection about x-axis
+2.Reflection about y-axis
+3.Reflection about origin
+4.Reflection about diagonal
+5.Reflection about off diagonal
+6.Exit
+Enter your choice 1
+Main menu
+1.Line reflections
+2.Polygon reflections
+Enter the choice 1
+
+
+
+POLYGON
+
+Main menu
+1.Line reflections
+2.Polygon reflections
+Enter the choice 2
+Enter the no. of vertices of the polygon 3
+Enter the polygon coordinates : 10
+10
+30
+30
+30
+10
+MENU
+1.Reflection about x-axis
+2.Reflection about y-axis
+3.Reflection about origin
+4.Reflection about diagonal
+5.Reflection about off diagonal
+6.Exit
+Enter your choice 2
+

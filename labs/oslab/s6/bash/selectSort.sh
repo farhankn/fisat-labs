@@ -1,0 +1,35 @@
+
+clear
+
+echo " How many elements : "
+read n
+
+echo " Enter the elements "
+
+for((i=0;i<n;i++))
+do
+    read a[i]
+done
+
+
+for((i=0;i<n;i++))
+do
+
+    min=$i
+
+    for((j=(i+1);j<n;j++))
+    do
+	if((a[j]<a[min]))
+	then
+	    min=$j
+	fi
+    done
+    
+    temp=$((a[min]))
+    a[min]=$((a[i]))
+    a[i]=$temp
+
+done
+
+echo ${a[*]}
+

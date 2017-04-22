@@ -1,0 +1,382 @@
+\documentclass[pdftex,12pt,a4paper]{report}
+\usepackage{graphicx}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{color}
+\usepackage{fancyhdr}
+\usepackage{array}
+%\usepackage{titlesec}
+%\usepackage{lipsum}
+%\usepackage[printwatermark]{xwatermark}
+%\usepackage{xcolor}
+%\usepackage{tikz}
+
+%\titleformat{\section}[block]{\normalfont\Large\bfseries\filcenter}{\thesection}{1em}{}
+\setlength{\headheight}{25.2pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\pagestyle{fancy}
+\lhead{\bf \large{ Programming Lab}}
+\rhead{\bf \large{ /*Sreedhar P.K\\ S3 CSE*/}}
+%\lfoot{\bf \footnotesize {Mithun A V, Merin Cherian, Divya T V}}
+%\rfoot{\bf \footnotesize {Meenu Mathew, Siyamol C, Lino M}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\renewcommand{\thesection}{\arabic{section}}
+\lstset{
+language=sh,                % choose the language of the code
+%numbers=left,                   % where to put the line-numbers
+stepnumber=1,                   % the step between two line-numbers.        
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+tabsize=2,                      % sets default tabsize to 2 spaces
+captionpos=false,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+title=\lstname,                 % show the filename of files included with \lstinputlisting;
+}
+%
+%\newsavebox\mybox
+%\savebox\mybox{\tikz[color=red,opacity=0.3]\node{FISAT};}
+
+
+\begin{document}
+\section*{Conversion using function: Binary to Decimal, Decimal to
+17 Binary, Binary to Hexadecimal, Hexadecimal to Binary}
+\lstinputlisting{./programs/1/binarydecimal1.c}
+\subsection*{Output}
+\begin{lstlisting}
+Conversion Program
+Menu:
+
+
+1.Binary to decimal
+2.Decimal to binary
+3.Binary to Hexadecimal
+4.Hexadecimal to Binary
+5.Exit
+Enter your option:  1
+
+Enter a binary number:100
+
+The decimal number is : 4
+
+Do you wish to continue...?(y/n)y
+
+		Conversion Program
+Menu:
+
+
+1.Binary to decimal
+2.Decimal to binary
+3.Binary to Hexadecimal
+4.Hexadecimal to Binary
+5.Exit
+Enter your option:  2
+
+Enter the decimal value of the number: 6
+
+The binary number is:110
+
+Do you wish to continue...?(y/n)y
+
+		Conversion Program
+Menu:
+
+
+1.Binary to decimal
+2.Decimal to binary
+3.Binary to Hexadecimal
+4.Hexadecimal to Binary
+5.Exit
+Enter your option:  3
+
+Enter a binary number :1111
+
+The hexadecimal number is : F
+
+Do you wish to continue...?(y/n)n
+
+\end{lstlisting}
+
+
+
+\newpage
+\section*{Evaluate Taylor Series expansion ex , sin(x),cos(x) using recursion}
+\lstinputlisting{./programs/1/taylor.c}
+\subsection*{Output}
+\begin{lstlisting}
+	Program to Evaluate Taylor Series Expansion e(x),sinx,cosx using Recursion
+
+Menu:
+Find taylor series expansion of
+1.e(x)
+2.sinx
+3.cosx
+4.exit
+Enter a Choice: 1
+
+enter the value for x,n 2 3
+
+the sum of series is 1.000000
+Do you wish to continue (y/n)?: y
+
+	Program to Evaluate Taylor Series Expansion e(x),sinx,cosx using Recursion
+
+Menu:
+Find taylor series expansion of
+1.e(x)
+2.sinx
+3.cosx
+4.exit
+Enter a Choice: 2
+enter the values for x,n
+9 8
+the sum is 0.156356
+
+Do you wish to continue (y/n)?: y
+
+	Program to Evaluate Taylor Series Expansion e(x),sinx,cosx using Recursion
+
+Menu:
+Find taylor series expansion of
+1.e(x)
+2.sinx
+3.cosx
+4.exit
+Enter a Choice: 3
+enter the values for x,n7 9
+the sum is 0.992554
+
+Do you wish to continue (y/n)?: n
+
+\end{lstlisting}
+
+\newpage
+\section*{To find transpose of Matrix using pointers and functions}
+\lstinputlisting{./programs/1/transpose.c}
+\subsection*{Output}
+\begin{lstlisting}
+Enter the row and column index
+3 3
+
+Enter the elements in the matrix
+1 1 1 2 2 2 3 3 3
+
+The entered matrix is
+ 1 1 1
+ 2 2 2
+ 3 3 3
+
+the Transpose Matrix is
+ 1  2  3 
+ 1  2  3 
+ 1  2  3 
+
+\end{lstlisting}
+
+
+\newpage
+\section*{Menu driven program for Palindrome checking, String Concatenation, Replace a Substring}
+\lstinputlisting{./programs/1/string.c}
+\subsection*{Output}
+\begin{lstlisting}
+Enter a string:malayalam 
+MENU
+=====
+1.Palindrome checking
+2.String concatenation
+3.Replace a substring
+4.Exit
+Enter your choice:1
+Given string is a palindrome.
+Do you want to continue(y/n)??y
+MENU
+=====
+1.Palindrome checking
+2.String concatenation
+3.Replace a substring
+4.Exit
+Enter your choice:2
+Enter the second string:malayalamkerala
+Concatenated string:malayalammalayalamkerala
+Do you want to continue(y/n)??y
+MENU
+=====
+1.Palindrome checking
+2.String concatenation
+3.Replace a substring
+4.Exit
+Enter your choice:3
+Enter a substring:malayalamkerala
+Position is 10
+Enter the string to replace:india
+malayalamindia
+Do you want to continue(y/n)??n
+
+\end{lstlisting}
+
+\newpage
+\section*{Sort a list of names using pointers}
+\lstinputlisting{./programs/1/strsort.c}
+\subsection*{Output}
+\begin{lstlisting}
+Enter the number of strings:5
+Enter name:Suzuki
+Enter name:Hyundai
+Enter name:Mitsubushi
+Enter name:Honda
+Enter name:Chevorlet
+Sorted list of strings is as follows:
+Chevorlet
+Honda
+Hyundai
+Mitsubushi
+Suzuki
+\end{lstlisting}
+
+\newpage
+\section*{Menu driven program to: Add a student record,Delete a student record, Prepare a ranklist of student records}
+\lstinputlisting{./programs/1/student.c}
+\subsection*{Output}
+\begin{lstlisting}
+Enter the student details 
+Enter roll no: 1001
+Enter name: Akshay
+Enter the number of subjects	3
+Enter marks of 3 subjects: 99 66 88
+Enter roll no: 1002
+Enter name: Jyothi
+Enter the number of subjects	3
+Enter marks of 3 subjects: 55 66 89
+Enter roll no: 1003
+Enter name: Raj
+Enter the number of subjects	3
+Enter marks of 3 subjects: 66 89 90
+Enter roll no: 1004
+Enter name: Jyothi
+Enter the number of subjects	3
+Enter marks of 3 subjects: 55 56 89
+
+			MENU
+
+	1.Add record
+	2.Delete record
+	3.Display ranklist
+
+Enter your choice: 3
+
+Rank Roll no  Name                   Total
+1    1001        Akshay                       253.000000
+2    1003        Raj                          245.000000
+3    1002        Jyothi                       210.000000
+4    1004        Jyothi                       200.000000
+
+			MENU
+
+	1.Add record
+	2.Delete record
+	3.Display ranklist
+
+Enter your choice: 1
+Enter roll no: 1005
+Enter name: Arun
+Enter marks of 3 subjects: 3
+99 98 97
+Roll no :1005  Name:Arun  Total mark:200.000000
+			MENU
+
+	1.Add record
+	2.Delete record
+	3.Display ranklist
+
+Enter your choice: Invalid selection
+
+			MENU
+
+	1.Add record
+	2.Delete record
+	3.Display ranklist
+
+Enter your choice: 3
+
+Rank Roll no  Name                   Total
+1    1001        Akshay                       253.000000
+2    1003        Raj                          245.000000
+3    1002        Jyothi                       210.000000
+4    1004        Jyothi                       200.000000
+5    1005        Arun                         200.000000
+
+			MENU
+
+	1.Add record
+	2.Delete record
+	3.Display ranklist
+
+\end{lstlisting}
+
+
+\newpage
+\section*{To find the palindrome words in a file and store it in another file}
+\lstinputlisting{./programs/1/filep.c}
+\subsection*{Output}
+\begin{lstlisting}
+Contents in new
+malayalam and are eye palindrome
+Contents in palin.txt
+malayalam eye
+\end{lstlisting}
+
+
+\newpage
+\section*{MENU DRIVEN PROGRAM TO ADD DELETE AND MODIFY THE DETAILS OF A BOOK USING FILES }
+\lstinputlisting{./programs/1/bookf.c}
+\subsection*{Output}
+\begin{lstlisting}
+Enter your choice
+
+		MENU
+		====
+	1.Add a book 
+	2.Delete a book 
+	3.Modify a book
+	4.Display Details
+	Enter Choice: 1
+Enter the book number : 100
+Enter the book name : C Programming
+Enter the name of author : Balaguruswamy
+Enter the cost : 200
+
+Do you want to continue(y/n): y
+Enter your choice
+
+		MENU
+		====
+	1.Add a book 
+	2.Delete a book 
+	3.Modify a book
+	4.Display Details
+	Enter Choice: 1
+Enter the book number : 101
+Enter the book name : C Programming edition 2    
+Enter the name of author : Ashok N kamthane
+Enter the cost : 400
+
+Do you want to continue(y/n): y
+Enter your choice
+
+		MENU
+		====
+	1.Add a book 
+	2.Delete a book 
+	3.Modify a book
+	4.Display Details
+	Enter Choice: 4
+ 100 C Programming Balaguruswamy 200.000000 101 C Programming edition 2 Ashok N kamthane 400.000000
+Do you want to continue(y/n): n
+
+
+\end{lstlisting}
+\end{document}

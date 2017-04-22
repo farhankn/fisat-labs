@@ -1,0 +1,43 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+class ClientGui implements ActionListener,Runnable{
+
+ClientGui()
+{
+Socket c = new Socket("localhost",10000);
+Frame f = new Frame("Client");
+TextField t1 = new TextField("Enter text here");
+Button b1 = new Button();
+b1.setLabel("Send");
+TextArea ta = new TextArea();
+f.add(t1);
+f.add(ta);
+f.setLayout(new FlowLayout());
+f.setVisible(true);
+f.setSize(600,250);
+b1.addActionListener(this);f.add(b1);
+}
+
+public static void main(String[] args) {
+ClientGui c1 = new ClientGui();
+Thread t1 = new Thread(C1);
+t1.start();
+
+}	
+
+public actionPerformed(ActionEvent ae){
+String s1 = " ";
+do{
+//DataInputStream din = new DataInputStream(System.in);
+s1 = t1.getText();
+ta.setText(s1);
+DataOutputStream dout = new DataOutputStream(c.getOutputStream());
+dout.writeBytes(s1+"\n");
+}while(!s1.equals("quit"));
+}
+}
+
+
+

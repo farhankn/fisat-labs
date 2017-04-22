@@ -1,0 +1,8 @@
+Salary -		 @pl_salinc.sql @pl_function.sql
+Hostipal Record 	@pl_ptrig.sql
+Bank-loan		@pl_loan1.sql
+Procedure		 @pl_procedure.sql @pl_student
+Auditsystem - Trigger		@pl_trigger.sql	
+Electricity Bill		@pl_elec.sql
+
+LastBank  @pl_acctrig.sql @pl_account.sql @func.sql

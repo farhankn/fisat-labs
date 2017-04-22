@@ -1,0 +1,399 @@
+29th July 2015  College Database
+
+
+SQL> create table student24(
+  2  stud_no varchar(9) primary key,
+  3   stud_lname varchar(15), 
+  4  stud_fname varchar(20),
+  5   address varchar(50),
+  6   city varchar(30),
+  7    state varchar(2),
+  8  post varchar(9));
+
+Table created.
+
+SQL> describe student24;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUD_NO				   NOT NULL VARCHAR2(9)
+ STUD_LNAME					    VARCHAR2(15)
+ STUD_FNAME					    VARCHAR2(20)
+ ADDRESS					    VARCHAR2(50)
+ CITY						    VARCHAR2(30)
+ STATE						    VARCHAR2(2)
+ POST						    VARCHAR2(9)
+
+SQL> insert into student24 values('5','Menon','Lakshmi','Sreeshailam','Chennai','TN','732142');
+1 row created.
+
+SQL> insert into student24 values('6','Bovas','Naina','Kalapura','Mumbai','MH','321745');
+1 row created.
+
+SQL> select * from student24;
+
+STUD_NO   STUD_LNAME	  STUD_FNAME	       ADDRESS						  CITY				 ST POST
+--------- --------------- -------------------- -------------------------------------------------- ------------------------------ -- ---------
+1	  Aryan 	  Geetha	       Memana						  Kochi 			 KL 682319
+2	  Benny 	  Seena 	       Kottakal 					  Aluwa 			 KL 682307
+3	  Charles	  Darwin	       Rosedale 					  Vytila			 KL 682371
+4	  Johnson	  Ben		       Manakudy 					  Chalakudy			 KL 678231
+5	  Menon 	  Lakshmi	       Sreeshailam					  Chennai			 TN 732142
+6	  Bovas 	  Naina 	       Kalapura 					  Mumbai			 MH 321745
+7	  Philip	  Eliza 	       Madathil 					  Vengola			 KL 682313
+8	  Thomas	  George	       Melepat						  Kalady			 KL 682357
+
+8 rows selected.
+
+
+*********************************************************************************************************************
+
+
+SQL> create table instructor24(
+  2  in_id varchar(5) primary key,
+  3  in_lname varchar(30),
+  4  in_fname varchar(20),
+  5  in_phno varchar(8));
+
+Table created.
+
+SQL> describe instructor24;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ IN_ID					   NOT NULL VARCHAR2(5)
+ IN_LNAME					    VARCHAR2(30)
+ IN_FNAME					    VARCHAR2(20)
+ IN_PHNO					    VARCHAR2(8)
+
+SQL> insert into instructor24 values('I1','Ramesh','Manu','2730711');
+1 row created.
+
+SQL> insert into instructor24 values('I2','Shaji','Suma','2760799');
+1 row created.
+
+SQL> insert into instructor24 values('I3','Rajan','Vishnu','2734989');
+1 row created.
+
+SQL> insert into instructor24 values('I4','Jose','Chanchal','2733127');
+1 row created.
+
+SQL> insert into instructor24 values('I5','Sai','Donat','2734234');
+1 row created.
+
+SQL> select * from instructor24;
+
+IN_ID IN_LNAME			     IN_FNAME		  IN_PHNO
+----- ------------------------------ -------------------- --------
+I1    Ramesh			     Manu		  2730711
+I2    Shaji			     Suma		  2760799
+I3    Rajan			     Vishnu		  2734989
+I4    Jose			     Chanchal		  2733127
+I5    Sai			     Donat		  2734234
+
+
+5 rows selected.
+
+*************************************************************************************************************
+
+SQL> create table course24(
+  2  c_code varchar(6) primary key,
+  3  c_title varchar(25),
+  4  c_hrs number(2,0));
+
+Table created.
+
+SQL> describe course24;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ C_CODE 				   NOT NULL VARCHAR2(6)
+ C_TITLE					    VARCHAR2(25)
+ C_HRS						    NUMBER(2)
+
+SQL> insert into course24 values('C1','Applied Electronics',60);
+1 row created.
+
+SQL> insert into course24 values('C2','Computer Mechanics',65);
+1 row created.
+
+SQL> insert into course24 values('C3','Software Design',60);
+1 row created.
+
+SQL> insert into course24 values('C4','Language Processing',70);
+1 row created.
+
+SQL> insert into course24 values('C5','Web Designing',50);
+1 row created.
+
+SQL> select * from course24;
+
+C_CODE C_TITLE			      C_HRS
+------ ------------------------- ----------
+C1     Applied Electronics		 60
+C2     Computer Mechanics		 65
+C3     Software Design			 60
+C4     Language Processing		 70
+C5     Web Designing			 50
+
+
+5 rows selected.
+
+***************************************************************************************************************
+
+SQL> create table section24(
+  2  sec_id varchar(7),
+  3  time_ofd varchar(10),
+  4  ds_ofd varchar(10),
+  5  sec_room varchar(8),
+  6  cls_size number(3,0),
+  7  num_enr number(3,0),
+  8  in_id varchar(5) references instructor24,
+  9  c_code varchar(6) references course24,
+ 10  primary key (sec_id,time_ofd),
+ 11  check (cls_size>=0),
+ 12  check (num_enr>=0));
+
+Table created.
+
+SQL> describe section24;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SEC_ID 				   NOT NULL VARCHAR2(7)
+ TIME_OFD				   NOT NULL VARCHAR2(10)
+ DS_OFD 					    VARCHAR2(10)
+ SEC_ROOM					    VARCHAR2(8)
+ CLS_SIZE					    NUMBER(3)
+ NUM_ENR					    NUMBER(3)
+ IN_ID						    VARCHAR2(5)
+ C_CODE 					    VARCHAR2(6)
+
+SQL> insert into section24 values('S1','9-12','Mo,Wd','R3',60,57,'I2','C2');
+1 row created.
+
+SQL> insert into section24 values('S2','1-4','Mo,Fr','R7',60,60,'I3','C3');
+1 row created.
+
+SQL> insert into section24 values('S3','9-12','Mo,Wd,Fr','R9',60,52,'I1','C4');
+1 row created.
+
+SQL> insert into section24 values('S4','1-4','Tu,Th','R5',60,60,'I4','C5');
+1 row created.
+
+SQL> insert into section24 values('S5','1-4','Mo,Th','R2',60,60,'I5','C1');
+1 row created.
+
+SQL> select * from section24;
+
+SEC_ID	TIME_OFD   DS_OFD     SEC_ROOM	 CLS_SIZE    NUM_ENR IN_ID C_CODE
+------- ---------- ---------- -------- ---------- ---------- ----- ------
+S1	9-12	   Mo,Wd      R3	       60	  57 I2    C2
+S2	1-4	   Mo,Fr      R7	       60	  60 I3    C3
+S3	9-12	   Mo,Wd,Fr   R9	       60	  52 I1    C4
+S4	1-4	   Tu,Th      R5	       60	  60 I4    C5
+S5	1-4	   Mo,Th      R2	       60	  60 I5    C1
+
+5 rows selected.
+
+
+*************************************************************************************************************************
+SQL> create table enrolment24(
+  2  stud_no varchar(9) references student24,
+  3  sec_id varchar(7),
+  4  grade varchar(2),
+  5  time_ofd varchar(10),
+  6  primary key(sec_id,stud_no),
+  7  foreign key(sec_id,time_ofd) references section24);
+
+Table created.
+
+SQL> describe enrolment24;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUD_NO				   NOT NULL VARCHAR2(9)
+ SEC_ID 				   NOT NULL VARCHAR2(7)
+ GRADE						    VARCHAR2(2)
+ TIME_OFD				
+
+SQL> insert into enrolment24 values('1','S2','B','1-4');
+1 row created.
+
+SQL> insert into enrolment24 values('2','S3','A','9-12');
+1 row created.
+
+SQL> insert into enrolment24 values('4','S1','C','9-12');
+1 row created.
+
+SQL> insert into enrolment24 values('6','S2','B','1-4');
+1 row created.
+
+SQL> insert into enrolment24 values('8','S3','A','9-12');
+1 row created.
+
+SQL> select * from enrolment24;
+
+STUD_NO   SEC_ID  GR TIME_OFD
+--------- ------- -- ----------
+1	  S2	  B  1-4
+2	  S3	  A  9-12
+4	  S1	  C  9-12
+6	  S2	  B  1-4
+8	  S3	  A  9-12
+
+5 rows selected.
+
+*******************************************************************************************************
+
+19th aug 2015
+*************
+
+SQL> update section24 set time_ofd='2-4',ds_ofd='Mo,Wd' where sec_id='S2';
+1 row updated.
+
+Commit complete.
+SQL> select * from section24;
+
+SEC_ID	TIME_OFD   DS_OFD     SEC_ROOM	 CLS_SIZE    NUM_ENR IN_ID C_CODE
+------- ---------- ---------- -------- ---------- ---------- ----- ------
+S1	9-12	   Mo,Wd      R3	       66	  57 I2    C2
+S2	2-4	   Mo,Wd      R7	       66	  60 I3    C3
+S3	9-12	   Mo,Wd,Fr   R9	       66	  52 I1    C4
+S4	1-4	   Tu,Th      R5	       66	  60 I4    C5
+S5	1-4	   Mo,Th      R2	       66	  60 I5    C1
+S255	2-4	   Mo,Wd      R102	       39	   0 I111  C550
+
+6 rows selected.
+
+**************************************************************************************
+
+SQL> delete from section24 where sec_id='S3';
+delete from section24 where sec_id='S3'
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (CS30413.SYS_C0026471) violated - child record
+found
+
+
+*************************************************************************************
+
+SQL> delete from course24 where c_code='C1';      
+delete from course24 where c_code='C1'
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (CS30413.SYS_C0026444) violated - child record
+found
+
+************************************************************************************
+
+SQL> create index sec1 on section24(in_id);
+
+Index created.
+
+
+SQL> create index sec2 on section24(c_code);
+
+Index created.
+
+
+SQL> create index enrol on enrolment24(stud_no,sec_id,time_ofd);
+
+Index created.
+
+
+*********************************************************************************
+
+SQL> select sec_id,time_ofd,ds_ofd,c_code from section24 where cls_size between 30 and 40 and ds_ofd like '%Mo%';
+
+SEC_ID	TIME_OFD   DS_OFD     C_CODE
+------- ---------- ---------- ------
+S255	2-4	   Mo,Wd      C550
+
+
+*********************************************************************************
+
+SQL> select c_title,c_hrs from course24 where c_hrs=60 order by c_code desc;
+
+C_TITLE 		       C_HRS
+------------------------- ----------
+Software Design 		  60
+Applied Electronics		  60
+
+********************************************************************************
+SQL> select in_id,sum(cls_size) from section24 group by in_id order by sum(cls_size);
+
+IN_ID SUM(CLS_SIZE)
+----- -------------
+I111		 39
+I1		 66
+I4		 66
+I5		 66
+I3		 66
+I2		 66
+
+6 rows selected.
+
+
+***********************************************************************************
+
+SQL> select stud_no,sec_id,grade from enrolment24
+  2  where grade like 'B%';
+
+STUD_NO   SEC_ID  GRADE
+--------- ------- -----
+1	  S2	  B
+6	  S2	  B
+
+************************************************************************************
+
+SQL> select c_code,avg(cls_size) from section24
+  2  group by c_code;
+
+C_CODE AVG(CLS_SIZE)
+------ -------------
+C4		  66
+C5		  66
+C2		  66
+C1		  66
+C550		  39
+C3		  66
+
+6 rows selected.
+
+*********************************************************************************
+
+SQL>  select instructor24.in_fname,instructor24.in_lname,
+  2  section24.time_ofd,section24.ds_ofd,
+  3  section24.sec_room,section24.c_code,course24.c_title
+  4  from course24,instructor24,section24
+  5  where instructor24.in_id=section24.in_id
+  6  and section24.c_code=course24.c_code;
+
+IN_FNAME	     IN_LNAME			    TIME_OFD   DS_OFD	  SEC_ROOM C_CODE C_TITLE
+-------------------- ------------------------------ ---------- ---------- -------- ------ -------------------------
+Manu		     Ramesh			    9-12       Mo,Wd,Fr   R9	   C4	  Language Processing
+Suma		     Shaji			    9-12       Mo,Wd	  R3	   C2	  Computer Mechanics
+Vishnu		     Rajan			    1-4        Mo,Fr	  R7	   C3	  Software Design
+Chanchal	     Jose			    1-4        Tu,Th	  R5	   C5	  Big Data
+Donat		     Sai			    1-4        Mo,Th	  R2	   C1	  Applied Electronics
+Ajay		     Davis			    2-4        Mo,Wd	  R102	   C550   Web Design
+
+6 rows selected.
+
+******************************************************************************
+
+SQL> select student24.stud_fname,student24.stud_lname,
+  2  enrolment24.sec_id,enrolment24.grade
+  3  from student24,enrolment24
+  4  where student24.stud_no=enrolment24.stud_no;
+
+STUD_FNAME	     STUD_LNAME      SEC_ID  GRADE
+-------------------- --------------- ------- -----
+Geetha		     Aryan	     S2      B
+Seena		     Benny	     S3      A
+Ben		     Johnson	     S1      C
+Naina		     Bovas	     S2      B
+George		     Thomas	     S3      A
+Neenu		     Shaji	     S255
+
+6 rows selected.
+
+**********************************************************************************************************
+
+

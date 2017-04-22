@@ -1,0 +1,30 @@
+//Program to sort an array using insertion sort.
+#include<stdio.h>
+void insort(int *a,int n);
+void main()
+{
+  int a[30], n,i;
+  printf("\nEnter the size of the array: ");
+  scanf("%d",&n);
+  printf("\nEnter the elements of the array: ");
+  for(i=0;i<n;i++)
+    scanf("%d",&a[i]);
+  insort(a,n);
+  printf("\nThe array after sorting is: ");
+  for(i=0;i<n;i++)
+   printf("%d ",a[i]);
+  printf("\n");
+}
+
+//Function for insertion sort.
+void insort(int *a,int n)
+{
+  int i,j,m;
+  for(i=1;i<n;i++)
+    {
+      m=a[i];
+      for(j=i-1;(j>=0)&&(m<a[j]);j--)
+	a[j+1]=a[j];
+      a[j+1]=m;
+    }
+}

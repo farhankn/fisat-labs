@@ -1,0 +1,172 @@
+#include <stdio.h>
+#include <string.h>
+
+struct process
+{
+  int status,at,wt,bt,tt,pr;
+  char pname[10];
+};
+
+struct dProcess
+{
+  int st,ct;
+  char pname[10];
+};
+
+
+int printGantt(struct dProcess d[],int num);
+
+int main()
+{
+  int ls = 0,flag = 0,i,j,k=0,num = 0,n,found,count=0;
+
+  float avgWait = 0,avgTA = 0;
+
+  struct process p[20];
+  struct dProcess d[20];
+  char pname[10]="p1";
+
+  system("clear");
+
+  printf(" \tHow many processes : ");
+  scanf("%d",&n);
+
+  for(i=0;i<n;i++)
+    {
+      printf("\n\t Process %d : Pname : ",i+1);
+      scanf("%s",p[i].pname);      
+      printf("\n\t Process %d : arrival time : ",i+1);
+      scanf("%d",&p[i].at);
+      printf("\n\t Process %d : burst time : ",i+1);
+      scanf("%d",&p[i].bt);
+      printf("\n\t Process %d : priority : ",i+1);
+      scanf("%d",&p[i].pr);
+
+      p[i].status = 0;
+    }
+
+  for(i=0;ls<n;)
+    {
+      found = 0;
+      
+      for(j=0;j<n;j++)
+	{
+	  if( (found == 0) && (p[j].status == 0) && (p[j].at <= i) )
+	    {
+	      k=j;
+	      found++;
+	    }
+	  else if( (found > 0) && (p[j].status == 0) && (p[j].at <= i) )
+	    {
+	      if(p[j].pr >= p[k].pr)
+		{
+		  k=j;
+		  found++;
+		}
+	    }
+	}
+
+      if(found == 0)
+	{
+	  if(!flag)
+	    strcpy(d[num].pname,"idle");
+	  else
+	    strcpy(d[num].pname," ");
+
+	  
+
+	  d[num].st=i;
+	  
+	  i++;
+	  num++;
+	  flag++;
+	}
+      else if(found > 0)
+	{
+	  flag = 0;
+	  
+	  strcpy(d[num].pname,p[k].pname);
+	  d[num].st = i;
+	  d[num].ct = d[num].st + p[k].bt;
+	  p[k].wt = d[num].st - p[k].at;
+	  printf("\np[%d].wt = %d\n",k,p[k].wt);
+	  p[k].tt = p[k].wt + p[k].bt;
+
+	  avgWait += p[k].wt;
+	  avgTA += p[k].tt;
+
+	  i = d[num].ct;
+	  ls++;
+	  num++;
+	  p[k].status = 1;
+     
+	}
+      else
+	{
+	  i++;
+	}
+
+      /* printf("\n\n%f\n\n",avgWait);
+      avgWait /= (num - 1);
+      avgTA /= (num - 1);*/
+ 
+    }
+
+  
+      printf("\n\n%f\n\n",avgWait);
+      avgWait /= (float)(num - 1);
+      avgTA /= (float)(num - 1);
+
+  printf("\n\n\n\t Average Wait time : %f ",avgWait);
+  printf("\n\t Average Turn Around time : %f ",avgTA);
+
+  printGantt(d,num);
+  return 0;
+}
+
+int printGantt(struct dProcess d[],int num)
+{
+  int i;
+
+  printf("\n\n");
+
+  printf("-");
+  for(i=0;i<num;i++)
+    printf("-------");
+
+  printf("\n");
+
+  for(i=0;i<num;i++)
+    {
+      if(!strcmp(d[i].pname,"idle"))
+	printf("| idle ");
+      else if(!strcmp(d[i].pname," "))
+	printf("       ");
+      else
+	printf("|  %s  ",d[i].pname);
+    }
+  printf("|");
+
+  printf("\n");
+
+  for(i=0;i<num;i++)
+    printf("-------");
+  printf("-");
+
+  printf("\n");
+
+  for(i=0;i<num;i++)
+    {
+      if(!strcmp(d[i].pname,"idle"))
+	printf("%d      ",d[i].st);
+      else if(!strcmp(d[i].pname," "))
+	printf("       ");
+      else
+	printf("%d      ",d[i].st);
+    }
+  printf("%d",d[i-1].ct);
+
+  printf("\n\n");
+
+  return 0;
+}

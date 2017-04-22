@@ -1,0 +1,246 @@
+OUTPUT
+------------
+
+
+ create sequence seq
+ increment by 1
+ start with 1001;
+
+Sequence created.
+
+
+
+create table cust_bank ( cname varchar2(15),addr varchar2(15) );
+
+Table created.
+
+
+ insert into cust_bank 
+ values('&cname','&addr');     
+Enter value for cname: arjun
+Enter value for addr: kochi
+old   2: values('&cname','&addr')
+new   2: values('arjun','kochi')
+
+1 row created.
+
+Commit complete.
+SQL> /
+Enter value for cname: biju
+Enter value for addr: calicut
+old   2: values('&cname','&addr')
+new   2: values('biju','calicut')
+
+1 row created.
+
+Commit complete.
+SQL> /
+Enter value for cname: hari
+Enter value for addr: kannur
+old   2: values('&cname','&addr')
+new   2: values('hari','kannur')
+
+1 row created.
+
+Commit complete.
+SQL> select * from cust_bank;
+
+CNAME		ADDR
+--------------- ---------------
+hari		kannur
+arjun		kochi
+biju		calicut
+
+
+SQL> create table branch ( branch_id varchar2(3),
+  branch_city varchar2(10 ) );
+
+Table created.
+
+SQL> insert into branch
+  values('&branch_id','&branch_city');
+Enter value for branch_id: b1
+Enter value for branch_city: Kochi
+old   2: values('&branch_id','&branch_city')
+new   2: values('b1','Kochi')
+
+1 row created.
+
+Commit complete.
+
+SQL> insert into branch
+  2  values('&branch_id','&branch_city');
+Enter value for branch_id: b2
+Enter value for branch_city: Thiruvalla
+old   2: values('&branch_id','&branch_city')
+new   2: values('b2','Thiruvalla')
+
+1 row created.
+
+Commit complete
+
+SQL> insert into branch
+  2  values('&branch_id','&branch_city');
+Enter value for branch_id: b3
+Enter value for branch_city: Cherthala
+old   2: values('&branch_id','&branch_city')
+new   2: values('b3','Cherthala')
+
+1 row created.
+
+Commit complete
+
+SQL> insert into branch
+  2  values('&branch_id','&branch_city');
+Enter value for branch_id: b4
+Enter value for branch_city: Thrissur
+old   2: values('&branch_id','&branch_city')
+new   2: values('b4','Thrissur')
+
+1 row created.
+
+Commit complete
+
+SQL> select * from branch;
+
+BRANC BRANCH_CIT
+----- ----------
+b1    Kochi
+b2    Thiruvalla
+b3    Cherthala
+b4    Thrissur
+
+
+SQL> create table ac ( cname varchar2(15),
+   ac_no varchar(4),
+  bal number(8,2),
+    branch_id varchar2(3) );
+
+Table created.
+
+SQL> @btrig.sql
+ 24  /
+
+Trigger created.
+
+SQL> @btrigmain.sql
+ 38  /
+Enter value for cnname: hari
+old  12: 	cnname:='&cnname';
+new  12: 	cnname:='hari';
+Enter value for bid: b2
+old  13: 	bid:='&bid';
+new  13: 	bid:='b2';
+Enter value for bal: 6000
+old  14: 	bal:=&bal;
+new  14: 	bal:=6000;
+Enter value for address: kannur
+old  22: 		address:='&address';
+new  22: 		address:='kannur';
+No of accounts=0
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from ac;
+
+CNAME		AC_N	    BAL BRANC
+--------------- ---- ---------- -----
+hari		1001	   6000 b2
+
+SQL> @btrigmain.sql
+ 38  /
+Enter value for cnname: hari
+old  12: 	cnname:='&cnname';
+new  12: 	cnname:='hari';
+Enter value for bid: b2
+old  13: 	bid:='&bid';
+new  13: 	bid:='b2';
+Enter value for bal: 80000
+old  14: 	bal:=&bal;
+new  14: 	bal:=80000;
+Enter value for address: kannur
+old  22: 		address:='&address';
+new  22: 		address:='kannur';
+No of accounts=1
+
+PL/SQL procedure successfully completed.
+
+Commit complete.
+SQL> select * from ac;
+
+CNAME		AC_N	    BAL BRANC
+--------------- ---- ---------- -----
+hari		1002	  80000 b2
+hari		1001	   6000 b2
+
+SQL> @btrigmain.sql
+ 38  /
+Enter value for cnname: hari
+old  12: 	cnname:='&cnname';
+new  12: 	cnname:='hari';
+Enter value for bid: b3
+old  13: 	bid:='&bid';
+new  13: 	bid:='b3';
+Enter value for bal: 7000
+old  14: 	bal:=&bal;
+new  14: 	bal:=7000;
+Enter value for address: kannur
+old  22: 		address:='&address';
+new  22: 		address:='kannur';
+No of accounts=2
+
+PL/SQL procedure successfully completed.
+
+Commit complete.
+SQL> select * from ac;
+
+CNAME		AC_N	    BAL BRANC
+--------------- ---- ---------- -----
+hari		1002	  80000 b2
+hari		1001	   6000 b2
+hari		1003	   7000 b3
+
+SQL> @btrigmain.sql
+ 38  /
+Enter value for cnname: hari
+old  12: 	cnname:='&cnname';
+new  12: 	cnname:='hari';
+Enter value for bid: b1
+old  13: 	bid:='&bid';
+new  13: 	bid:='b1';
+Enter value for bal: 4000
+old  14: 	bal:=&bal;
+new  14: 	bal:=4000;
+Enter value for address: kannur
+old  22: 		address:='&address';
+new  22: 		address:='kannur';
+No of accounts=3
+declare
+*
+ERROR at line 1:
+ORA-20000: Cannot have any more accounts for this account no.
+ORA-06512: at "CS31613.TRIGBANK", line 10
+ORA-04088: error during execution of trigger 'CS31613.TRIGBANK'
+ORA-06512: at line 16
+
+
+
+
+
+QUERIES
+
+SQL> select branch_id from ac group by branch_id having count(*)=(select max (count(*)) from ac group by branch_id );
+
+BRANC
+-----
+b2
+b3
+
+SQL> select branch_city from branch group by branch_city having count(*)=(select max (count(*)) from branch group by branch_city);
+
+BRANCH_CIT
+----------
+Kochi
+
+
+

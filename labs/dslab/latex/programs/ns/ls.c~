@@ -1,0 +1,82 @@
+//Program to dynamically implement a linked stack.
+#include<stdlib.h>
+#include<stdio.h>
+void push();
+void pop();
+void display();
+struct node
+{
+  int data;
+  struct node *next;
+};
+struct node *top=NULL;
+void main()
+{
+  int op;
+  do
+    {
+      
+      printf("\t\tMENU\n\t\t****\n\t1.PUSH\n\t2.POP\n\t3.DISPLAY\n\t4.EXIT");
+      printf("\nEnter your choice:");
+      scanf("%d",&op);
+      switch(op)
+	{
+	case 1:push();
+	  break;
+	case 2:pop();
+	  break;
+	case 3:display();
+	  break;
+	case 4:break;
+	default:printf("Invalid choice!!\n");
+	}
+    }while(op!=4);
+}
+
+//Function to push elements.
+void push()
+{
+  
+  struct node *p;
+  p=(struct node*)malloc(sizeof(struct node));
+  printf("Enter data:");
+  scanf("%d",&p->data);
+  p->next=top;  
+  top=p;
+}
+
+//Function to pop element.
+void pop()
+{
+  int item;
+  struct node *temp;
+  if(top==NULL)
+    printf("Empty Stack.\n");
+  else
+    {
+      temp=top;
+       item=temp->data;
+      printf("Deleted element is %d.\n",item);      
+      top=top->next;
+      free(temp);
+    }
+}
+
+//Function to display the stack.
+void display()
+{
+  struct node *temp;
+  if(top==NULL)
+    {
+      printf("Empty stack.\n");
+    }
+  else
+    {
+      temp=top;
+      while(temp!=NULL)
+	{
+	  printf("%d\t",temp->data);
+	  temp=temp->next;
+	}
+    }
+}

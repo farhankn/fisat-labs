@@ -1,0 +1,25 @@
+import java.io.*;
+import java.net.*;
+
+class uniserver
+{
+	public static void main(String[] args)
+	{
+		try
+		{
+			String s;
+			ServerSocket ss=new ServerSocket(3333);
+			Socket c=ss.accept();
+			DataInputStream din=new DataInputStream(c.getInputStream());
+			while(!s.equals("quit"));
+			{
+				s=din.readLine();
+				
+				System.out.println(s);
+			}
+		}
+		catch(Exception e)
+		{}
+	}
+}
+

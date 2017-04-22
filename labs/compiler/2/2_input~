@@ -1,0 +1,13 @@
+#include<stdio.h>
+#include<string.h>
+
+#define PI 3.14
+#define sum() {c=a+b}
+#define mul() {c=a*b}
+void main()
+{
+  int a,b,c,area ;
+  area = c + PI ;
+  sum() ;
+  mul() ;
+}

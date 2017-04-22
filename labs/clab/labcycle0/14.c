@@ -1,0 +1,13 @@
+#include<stdio.h>
+
+main()
+{
+   int a,b;
+   printf("\nEnter sides of Rectangle");
+   scanf("%d %d",&a,&b);
+   int area;
+   area = a * b;
+   printf("\n Area : %d", area);
+}
+
+

@@ -1,0 +1,17 @@
+{
+    "contents" : "data=read.csv('hhp.csv')\nplot(data[,1],data[,3])\nmodel=lm(price~size+no_bedrooms,data)\ncoeff=coefficients(model)\ncoeff[1]\ncoeff[2]\nabline(a=coeff[1],b=coeff[2],col=3)\ngiven_size=4300\nprice_predicted=coeff[1]+coeff[2]*given_size\nprint(price_predicted)\n\n\nmodel=lm(price~size+no_bedrooms,data)\ncoeff1=coefficients(model)\ngiven_size=43000\nno_rooms=2\nprice_predicted1=coeff1[1]+coeff1[2]*given_size+coeff1[3]*no_rooms\nprint(price_predicted1)\n\nnava",
+    "created" : 1424700672544.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "521050991",
+    "id" : "859C32E5",
+    "lastKnownWriteTime" : 1424702106,
+    "path" : "~/Sample/Hello.R",
+    "project_path" : "Hello.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

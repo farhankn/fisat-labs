@@ -1,0 +1,34 @@
+( openpara
+) closepara
+{ openbrace
+} closebrace
+< lesser
+> greater
+" doublequote
+' singlequote
+: colon
+; semicolon
+# preprocessor
+= equal
+== assign
+% percentage
+^ bitwise
+& reference
+* star
++ add
+- sub
+\ backslash
+/ slash
+
+
+
+#include<stdio.h>
+#include<ctype.h>
+
+void main()
+{
+char a[]='a';
+int a=10;
+int a=14;
+printf("%d\n",isalpha(b));
+}

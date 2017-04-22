@@ -1,0 +1,78 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+void insert();
+void inorder(struct node *root);
+
+  struct node{
+    int data;
+    struct node *lc;
+    struct node *rc;
+  }*rootn;
+
+main()
+{
+  *rootn=NULL;
+  int ch;
+  do{
+  printf("\n Menu");
+  printf("\n1. Insert");
+  printf("\t2. Inorder");
+  printf("\n3.Exit\n4.Enter your Choice : ");
+  scanf("%d",&ch);
+  switch(ch)
+    {
+    case 1: insert();
+      break;
+    case 2: inorder(rootn);
+      break;
+    case 3: exit();
+    default:printf("\nEnter a Valid Choice");
+  }while(ch!=3);
+}
+  
+}
+void insert()
+{
+  int e;
+  printf("\n Enter the Element to be Inserted: ");
+  scanf("%d",&e)
+  struct node *x,*ptr,*parent;
+  x = (struct node *)malloc(sizeof(struct node));
+  ptr(struct node *)malloc(sizeof(struct node));
+  parent=(struct node *)malloc(sizeof(struct node));
+  x-> data = e;
+  x->lchild = NULL;
+  x->rchild = NULL;
+  if(rootn=NULL)
+    {
+      rootn= x;
+    }
+  else
+    {
+      ptr = rootn;
+      while(ptr!=NULL)
+	{	  parent = ptr;
+	  if(e>ptr->data)
+	    ptr=ptr->rc;
+	  else
+	    ptr=ptr->lc;
+	}
+      if(e>parent->data)
+	parent->rc=x;
+      else
+	parent->lc=x;
+    }
+}
+
+void inorder(struct node *root)
+{
+  ptr = root;
+  if (ptr!=NULL);
+  {
+    inorder(ptr->lc);
+    printf("%d",ptr->data);
+    inorder(ptr->rc);
+  }
+}
+      

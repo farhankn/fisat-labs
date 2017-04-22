@@ -1,0 +1,42 @@
+//Program to sort array using selection sort.
+#include<stdio.h>
+void selsort(int *a,int n);
+void main()
+{
+  int a[30], n,i;
+  printf("Enter the size of the array:");
+  scanf("%d",&n);
+  printf("Enter the elements of the array:\n");
+  for(i=0;i<n;i++)
+    scanf("%d",&a[i]);
+  selsort(a,n);
+  printf("The array after sorting is:\n");
+  for(i=0;i<n;i++)
+   printf("%d\t",a[i]);
+  printf("\n");
+}
+
+//Function for selection sort.
+void selsort(int *a,int n)
+{
+  int i,j,min,loc,temp;
+  for(i=0;i<n-1;i++)
+    {
+      min=a[i];
+      loc=i;
+      for(j=i+1;j<n;j++)
+	{
+	  if(a[j]<min)
+	    {
+	      min=a[j];
+	      loc=j;
+	    }
+	}
+      if(loc!=i)
+	{
+	  temp=a[i];
+	  a[i]=a[loc];
+	  a[loc]=temp;
+	}
+    }
+}

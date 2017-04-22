@@ -1,0 +1,122 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+	char label[30];
+	char opcode[30];
+	char operand[30];
+
+main()
+{
+  FILE *ptr,*ptr1,*ptr2,*ptr3;
+  //ptr-Sourcefile ptr1-intermediate ptr2-SYMTAB pt3-dupcheck
+  int loctr,constant;
+  char g,temp[10],label1[10],loctr1[10];
+  
+  ptr=fopen("code","r");
+  if(ptr==NULL)
+    {
+      printf("Cannot open source file\n");
+      exit(0);
+    }
+  ptr1 = fopen("intermediate","w+");
+  if(ptr1==NULL)
+	{
+	  printf("Cannot open destination file\n");
+	  exit(0);
+	}
+  ptr2 = fopen("symtab","w+");
+  if(ptr2==NULL)
+	{
+	  printf("Cannot open destination file\n");
+	  exit(0);
+	}
+  ptr3=fopen("symtab","r");
+  if(ptr3==NULL)
+    {
+      printf("Cannot open source file\n");
+      exit(0);
+    }
+
+ while(1)
+	  {
+	  
+    	  if(feof(ptr))
+	  	break;		
+		fscanf(ptr,"%s %s %s",label,opcode,operand);
+		strcpy(temp,opcode);
+		//printf("%s\t",temp);
+
+
+		if(strcmp(temp,"START")==0)
+		{
+			if(strcmp(opcode,"-")==0)
+			{
+				loctr = 0;
+			}
+			else{
+			loctr = atoi(operand);
+			}
+			fprintf(ptr1,"%d %s %s %s\n",loctr,label,opcode,operand);
+		}
+		
+
+		//(strcmp(opcode,"END")!=0)
+		
+		if(strcmp(label,"-")==0)
+			;
+		else if(strcmp(opcode,"START")==0)
+			continue;
+		else{
+
+			//Check for Duplicate Symbol
+			while(1)
+			{
+			if(feof(ptr3))
+	  		break;		
+			fscanf(ptr3,"%s %s",loctr1,label1);
+			printf("%s %s\n",loctr1,label1);
+			if(strcmp(label1,label)==0)
+			{
+			printf("\n Duplicate Symbol found\n");
+			exit(0);
+			}
+			else
+			{
+			rewind(ptr3);
+			fprintf(ptr2,"%d %s\n",loctr,label);
+			}
+			break;
+			}
+		}
+		if(strcmp(temp,"START")!=0)
+		fprintf(ptr1,"%d %s %s %s\n",loctr,label,opcode,operand);
+			
+		if(strcmp(opcode,"WORD")==0)
+		loctr+=3;		
+		else if(strcmp(opcode,"RESW")==0)
+		loctr+=(3*atoi(operand));
+		else if(strcmp(opcode,"RESB")==0)
+		loctr+=atoi(operand);		
+		else if(strcmp(opcode,"BYTE")==0)
+		{
+		constant=strlen(operand)-1;
+		loctr+=constant;
+		}
+		else
+		{
+		if(strcmp(temp,"START")==0)
+			;
+		else
+		loctr+=3;
+		}
+		//printf("%s %s %s\n",label,opcode,operand);
+		
+		if(strcmp(opcode,"END")==0)
+			break;
+          }
+fclose(ptr);
+fclose(ptr1);
+}
+ 
+

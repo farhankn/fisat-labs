@@ -1,0 +1,20 @@
+--Account trigger main program
+
+declare 
+	bal number(9,2);
+	br varchar(15);
+	nm varchar(15);
+	ad varchar(15);
+begin
+	nm:='&nm';	
+	bal:=&bal;
+	br:='&br';
+	ad:='&ad';
+	insert into account11 values(nm,accno11.nextval,bal,br);
+	select address into ad from customer_trig11 where name=nm; 
+	
+exception 
+	when no_data_found then
+		insert into customer_trig11 values(nm,ad);				 
+commit;	
+end;

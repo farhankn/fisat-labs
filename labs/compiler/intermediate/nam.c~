@@ -1,0 +1,143 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int top=-1;
+char stack[25];
+
+void push(char a)
+{
+  top++;
+  stack[top]=a;
+}
+
+int pop()
+{
+  int item;
+  item=stack[top];
+  top--;
+  return item;
+}
+
+int precedence(char op)
+{
+  switch(op)
+    {
+    case '+':
+    case '-':return 1;
+      break;
+    case '*':
+    case '/':return 2;
+      break;
+    case '^':return 3;
+      break;
+    default: return 0;
+    }
+}
+
+int isoperator(char a)
+{
+  if(a=='+' || a=='-' || a=='*' || a=='/' || a=='^')
+    return 1;
+  else
+    return 0;
+}
+
+main()
+{
+  char infix[25],postfix[25],temp='1',x,ch;
+  int isp,icp,l,i,j=0,a,b,f=0,assign=0;
+  printf("\nEnter the expression: \n");
+  for(i=0;;i++)
+    {
+      infix[i]=getchar();
+      if(infix[i]=='\n')
+	break;
+    }
+  infix[i]=')';
+  infix[i+1]='\0';
+  push('(');
+  for(i=0;infix[i]!='\0';i++)
+    {
+      if(infix[i]=='(')
+	push(infix[i]);
+      else if(isalnum(infix[i]))
+	{
+	  if(infix[i+1]=='=')
+	    {
+	      ch=infix[i];
+	      i++;
+	      assign=1;
+	    }
+	  else
+	    {
+	      postfix[j]=infix[i];
+	      j++;
+	    }
+	}
+      else if(infix[i]==')')
+	{
+	  x=pop();
+	  while(x!='(')
+	    {
+	      postfix[j]=x;
+	      x=pop();
+	      j++;
+	    }
+	}
+      else if(isoperator(infix[i]))
+	{
+	  x=pop();
+	  isp=precedence(x);
+	  icp=precedence(infix[i]);
+	  while(isp>=icp)
+	    {
+	      postfix[j]=x;
+	      j++;
+	      x=pop();
+	      isp=precedence(x);
+	    }
+	  if(isp<icp)
+	    {
+	      push(x);
+	      push(infix[i]);
+	    }
+	}
+      else
+	{
+	  printf("\nGiven expression is not invalid\n");
+	  f=1;
+	  break;
+	}
+    }
+  if(f==0)
+    {
+      postfix[j]='\0';
+      printf("\nOp\tArg1\tArg2\tVar\n");
+      for(i=0;postfix[i]!='\0';i++)
+	{
+	  if(isalpha(postfix[i]))
+	    push(postfix[i]);
+	  else if(isoperator(postfix[i]))
+	    {
+	      b=pop();
+	      a=pop();
+	      push(temp);
+	      if(isdigit(a) && isdigit(b))
+		printf("%c\t\tt%c\tt%c\tt%c\n",postfix[i],a,b,temp);
+	      else if(isdigit(a) && !isdigit(b))
+		printf("%c\t\tt%c\t%c\tt%c\n",postfix[i],a,b,temp);
+	      else if(!isdigit(a) && isdigit(b))
+		printf("%c\t\t%c\tt%c\tt%c\n",postfix[i],a,b,temp);
+	      else
+printf("%c\t\t%c\t%c\tt%c\n",postfix[i],a,b,temp);
+	      temp++;
+	    }
+	}
+      if(assign==1)
+	{
+	  a=pop();
+	  printf("=\t\tt%c\tt%c\n",a,b);
+	  temp++;
+	}
+    }
+}

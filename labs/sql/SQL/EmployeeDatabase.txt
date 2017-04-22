@@ -1,0 +1,186 @@
+EXP2
+EMPLOYEE DATABASE
+
+=======================================================================================================
+
+CREATE TABLE EMPLOYEE18(
+ENO VARCHAR2(5),
+ENAME VARCHAR2(25) NOT NULL,
+SALARY NUMBER(5),
+DNO NUMBER(5),
+DATEOFJOIN DATE,
+DEPT_MANAGER VARCHAR2(10),
+JOB VARCHAR2(10),
+ADDRESS VARCHAR2(25),
+CITY VARCHAR2(10),
+PINCODE NUMBER(6),
+CONSTRAINT C1 PRIMARY KEY(ENO),
+CONSTRAINT C2 CHECK(ENO LIKE 'E%'),
+CONSTRAINT C3 CHECK(SALARY>0),
+CONSTRAINT C5 CHECK(CITY IN('COCHIN','MADRAS','BOMBAY','DELHI')),
+CONSTRAINT C6 FOREIGN KEY(DNO) REFERENCES DEPARTMENT18 ON DELETE CASCADE);
+
+
+CREATE TABLE DEPARTMENT18(
+  2  DNO NUMBER(8) PRIMARY KEY,
+  3  DEPT_NAME VARCHAR2(15),
+  4  EMPLOYEES NUMBER(3),
+  5  DEPT_MANAGER VARCHAR2(15));
+
+=======================================================================================================
+
+INSERT INTO DEPARTMENT18 VALUES('&DNO','&DEPT_NAME','&EMPLOYEES','&DEPT_MANAGER')
+INSERT INTO DEPARTMENT18 VALUES('4','BOOKING','70','ALFRED')
+
+SQL> SELECT * FROM DEPARTMENT18;
+
+       DNO DEPT_NAME	    EMPLOYEES DEPT_MANAGER
+---------- --------------- ---------- ---------------
+	 1 MAIN 		   50 GEORGE
+	 2 SALES		   60 RAMU
+	 3 SERVICE		   40 SHYAM
+	 4 BOOKING		   70 ALFRED
+
+
+INSERT INTO EMPLOYEE18 VALUES('&ENO','&ENAME','&SALARY','&DNO','&DATEOFJOIN','&DEPT_MANAGER','&JOB','&ADDRESS','&CITY','&PINCODE');
+INSERT INTO EMPLOYEE18 VALUES('E001','RAM','10000','1','11-AUG-2010','RAMU','HR','ALUVA','COCHIN','683011')
+
+SQL> SELECT * FROM EMPLOYEE18 
+  2  ;
+
+ENO   ENAME			    SALARY	  DNO DATEOFJOI DEPT_MANAG JOB	      ADDRESS			CITY	      PINCODE
+----- ------------------------- ---------- ---------- --------- ---------- ---------- ------------------------- ---------- ----------
+E001  RAM			     10000	    1 11-AUG-10 RAMU	   HR	      ALUVA			COCHIN	       683011
+E002  RAJ			     20000	    2 23-NOV-10 RAMU	   HR	      ANGAMALY			MADRAS	       632500
+E003  KIRAN			     30000	    2 10-SEP-02 	   GM	      PARAVUR			BOMBAY	       602022
+E004  ROY			     40000	    3 11-MAY-14 GEORGE	   MANAGER    KORATTY			DELHI	       101100
+
+
+=======================================================================================================
+
+select ename from employee18,department18
+where(employee18.dno=department18.dno and department18.dept_name='sales');
+
+select TOCHAR(dateofjoin,'DD/MM/YY') from employee18
+
+SQL> select ename from employee18
+  2  where(dateofjoin>'1-aug-98' and dno =2);
+
+ENAME
+-------------------------
+RAJ
+KIRAN
+
+SQL> select ename from employee18
+  2  where dno<>30;
+
+ENAME
+-------------------------
+RAM
+RAJ
+KIRAN
+ROY
+
+SQL> select ename from employee18,department18
+  2  where(employee18.dno=department18.dno and department19.dname='sales');
+where(employee18.dno=department18.dno and department19.dname='sales')
+                                          *
+ERROR at line 2:
+ORA-00904: "DEPARTMENT19"."DNAME": invalid identifier
+
+
+SQL> select ename from employee18,department18
+where(employee18.dno=department18.dno and department18.dname='sales');  2  
+where(employee18.dno=department18.dno and department18.dname='sales')
+                                          *
+ERROR at line 2:
+ORA-00904: "DEPARTMENT18"."DNAME": invalid identifier
+
+
+SQL> describe department18;
+ Name										     Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ DNO										     NOT NULL NUMBER(8)
+ DEPT_NAME										      VARCHAR2(15)
+ EMPLOYEES										      NUMBER(3)
+ DEPT_MANAGER										      VARCHAR2(15)
+
+SQL> select ename from employee18,department18
+where(employee18.dno=department18.dno and department18.dept_name='sales');  2  
+
+no rows selected
+
+SQL> select ename from employee18
+  2  where doj like '%2000';
+where doj like '%2000'
+      *
+ERROR at line 2:
+ORA-00904: "DOJ": invalid identifier
+
+
+SQL> select ename from employee18 where dateofjoin like '%2000';
+
+no rows selected
+
+SQL> select 'every year'||ename||'earns'||salary*1000 from employee18;
+
+'EVERYYEAR'||ENAME||'EARNS'||SALARY*1000
+--------------------------------------------------------------------------------
+every yearRAMearns10000000
+every yearRAJearns20000000
+every yearKIRANearns30000000
+every yearROYearns40000000
+
+SQL> select count(*) from employee18;
+
+  COUNT(*)
+----------
+	 4
+
+SQL> select min(salary) from employee18 group by job;
+
+MIN(SALARY)
+-----------
+      10000
+      30000
+      40000
+
+SQL> select ename,dept_name from employee18,department18 where(employee18.dno=department18.dno and employee18.job = 'clerk');
+
+no rows selected
+
+SQL> select ename,dept_name from employee18,department18 where(employee18.dno=department18.dno and employee18.job = 'Mananger');
+
+no rows selected
+
+SQL> select ename,dept_name from employee18,department18 where(employee18.dno=department18.dno and employee18.job = 'HR');   
+
+ENAME			  DEPT_NAME
+------------------------- ---------------
+RAM			  MAIN
+RAJ			  SALES
+
+SQL> select TOCHAR(date,'DD/MM/YY') from employee18;
+select TOCHAR(date,'DD/MM/YY') from employee18
+              *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select TOCHAR(dateofjoin,'DD/MM/YY') from employee18;
+select TOCHAR(dateofjoin,'DD/MM/YY') from employee18
+       *
+ERROR at line 1:
+ORA-00904: "TOCHAR": invalid identifier
+
+
+SQL> select TO CHAR(dateofjoin,'3/MM/YY') from employee18
+  2  ;
+select TO CHAR(dateofjoin,'DD/MM/YY') from employee18
+       *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+select min(salart
+

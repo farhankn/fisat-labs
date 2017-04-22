@@ -1,0 +1,29 @@
+%{
+	#include<stdio.h>
+	#include<string.h>
+%}
+alpha[a-zA-Z]
+num[0-9]
+alnum[a-zA-Z0-9]
+%%
+[\*\/\+\-\=] {printf("\noperator	:%s",yytext);}
+{alpha}{alnum}*  {if ((strcmp(yytext,"int")!=0 && strcmp(yytext,"float")!=0 && strcmp(yytext,"void")!=0) && strcmp(yytext,"main")!=0))
+			printf("\nIdentifier	:%s",yytext);
+		   else
+			printf("Keyword		:%s",yytext); }
+{num}{num}*\.{num}+  {printf("\nNumber	:%s",yytext);}
+[\;\,]  {printf("Punctuation	:%s",yytext);}
+[\{\}]  {printf("Paranthesis	:%s",yytext);}
+
+%%
+yywrap()
+{
+return 1;
+}
+main()
+{
+	yyin=fopen("transinput.txt","r");
+	yylex();
+}
+
+								

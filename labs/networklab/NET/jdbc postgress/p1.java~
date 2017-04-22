@@ -1,0 +1,25 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.io.*;
+public class employeedb{
+	public static void main(String args[])
+	{
+		Connection c;
+		PreparedStatement pst;
+		try{
+			Class.forName("org.postgresql.Driver");
+			c=DriverManager.getConnection("jdbc:postgresql://fisatdb.fisat.edu/fisatdb2","fisat2","fisat2");
+			Statement stmt=c.createStatement();
+			ResultSet rs;
+			System.out.println("Connection Established");
+		}
+		catch(Exception e)
+		{
+		system.out.println("Exception");
+		}
+	}
+}
+		

@@ -1,0 +1,16 @@
+
+Create Table Employee18
+(
+empno varchar2(4),
+name varchar2(10),
+designation varchar2(10),
+branch varchar2(10),
+deptno number(6)
+);
+
+
+update Employee set('E003','Hari','Assistant','Trichy') where (EMPNO = 'E003');
+
+update employee set salary = 200000
+where empno = 'E002';
+

@@ -1,0 +1,12 @@
+GDB Commands
+============
+
+gcc -g -r (object) (file.c)
+
+
+gdb object
+
+r - run
+s - statementwise
+b - breakpoint
+

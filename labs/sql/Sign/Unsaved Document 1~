@@ -1,0 +1,88 @@
+SQL> create sequence accno18
+  increment by 1
+ start with 1001
+  minvalue 1001
+  maxvalue 2000
+  6  order;
+
+Sequence created.
+
+SQL> create table customer_trig24(
+  2  name varchar(15) primary key,
+  3  address varchar(15));
+
+Table created.
+
+ create table account24(name varchar(15),acno number(7),balance number(9,2),br_id varchar(5) references branch24,constraint ctrig check (balance>500));
+
+Table created.
+
+SQL> create table branch24(
+  2  br_id varchar(5) primary key,
+  3  br_city varchar(15));
+
+Table created.
+
+
+insert into customer_trig24 values('Nainu','Skies End');
+
+insert into branch24 values('B003','Kottayam');
+
+insert into account24 values('Nainu',accno24.nextval,2000,'B001');
+
+SQL> SQL>  @pl_account.sql;
+ 19  /
+Enter value for nm: Shaji
+old   7: 	nm:='&nm';
+new   7: 	nm:='Shaji';
+Enter value for bal: 7000
+old   8: 	bal:=&bal;
+new   8: 	bal:=7000;
+Enter value for br: B001
+old   9: 	br:='&br';
+new   9: 	br:='B001';
+Enter value for ad: Ar
+old  10: 	ad:='&ad';
+new  10: 	ad:='Ar';
+2
+
+PL/SQL procedure successfully completed.
+
+Commit complete.
+SQL> select * from account24;
+
+NAME		      ACNO    BALANCE BR_ID
+--------------- ---------- ---------- -----
+Shaji		      1029	 3000 B001
+Suma		      1022	 4500 B001
+Shaji		      1030	 7000 B001
+Shaji		      1032	 7000 B001
+Nainu		      1019	 4000 B002
+
+SQL> @pl_account.sql;
+ 19  /
+Enter value for nm: Shaji
+old   7: 	nm:='&nm';
+new   7: 	nm:='Shaji';
+Enter value for bal: 3700
+old   8: 	bal:=&bal;
+new   8: 	bal:=3700;
+Enter value for br: B001
+old   9: 	br:='&br';
+new   9: 	br:='B001';
+Enter value for ad: Ar
+old  10: 	ad:='&ad';
+new  10: 	ad:='Ar';
+4
+declare
+*
+ERROR at line 1:
+ORA-20001: Limit of accounts exceeded.
+ORA-06512: at "CS30413.ACC_TRIG24", line 9
+ORA-04088: error during execution of trigger 'CS30413.ACC_TRIG24'
+ORA-06512: at line 11
+
+
+ select br_id from account24 group by br_id having count(*)=(select max(count(distinct br_id)) from branch24);
+
+

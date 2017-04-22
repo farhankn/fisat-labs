@@ -1,0 +1,522 @@
+
+
+=======================================================================================================
+
+
+
+CREATE TABLE STUDENT18(
+  2  STUD_NO VARCHAR2(9) PRIMARY KEY,
+  3  LNAME VARCHAR2(15),
+  4  FNAME VARCHAR2(20),
+  5  ADDRESS VARCHAR2(50),
+  6  CITY VARCHAR2(30),
+  7  STATE VARCHAR2(2),
+  8  PINCODE VARCHAR2(9));
+
+Table created.
+
+SQL> DESCRIBE STUDENT18
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUD_NO				   NOT NULL VARCHAR2(9)
+ LNAME						    VARCHAR2(15)
+ FNAME						    VARCHAR2(20)
+ ADDRESS					    VARCHAR2(50)
+ CITY						    VARCHAR2(30)
+ STATE						    VARCHAR2(2)
+ PINCODE					    VARCHAR2(9)
+
+=======================================================================================================
+
+
+
+
+
+
+CREATE TABLE INSTRUCTOR18(
+INSTRUCTORID VARCHAR2(5) PRIMARY KEY,
+LNAME VARCHAR2(30),
+FNAME VARCHAR2(20),
+PNUMBER VARCHAR2(20));
+
+DESCRIBE INSTRUCTOR18;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ INSTRUCTORID				   NOT NULL VARCHAR2(5)
+ LNAME						    VARCHAR2(30)
+ FNAME						    VARCHAR2(20)
+ PNUMBER					    VARCHAR2(20)
+
+
+
+
+=======================================================================================================
+
+
+
+
+CREATE TABLE COURSE18(
+COURSECODE VARCHAR2(6) PRIMARY KEY,
+COURSETITLE VARCHAR2(25),
+COURSEHOURS NUMBER(2,0));
+
+SQL> DESCRIBE COURSE18
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSECODE				   NOT NULL VARCHAR2(6)
+ COURSETITLE					    VARCHAR2(25)
+ COURSEHOURS					    NUMBER(2)
+
+
+
+
+=======================================================================================================
+
+
+
+
+
+
+CREATE TABLE SECTION18(
+SECTIONID VARCHAR2(7),
+TIMEOFFERED VARCHAR2(10),
+DATEOFFERED VARCHAR2(10),
+ROOM VARCHAR2(8),
+CSIZE NUMBER(3,0) CHECK(CSIZE>=0),
+ENROLLED NUMBER(3,0) CHECK(ENROLLED>=0),
+INSTRUCTORID VARCHAR2(5),
+COURSECODE VARCHAR2(6),
+FOREIGN KEY(INSTRUCTORID) REFERENCES INSTRUCTOR18,
+FOREIGN KEY(COURSECODE) REFERENCES COURSE18,
+PRIMARY KEY(TIMEOFFERED,SECTIONID));
+
+
+SQL> DESCRIBE SECTION18
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SECTIONID				   NOT NULL VARCHAR2(7)
+ TIMEOFFERED				   NOT NULL VARCHAR2(10)
+ DATEOFFERED					    VARCHAR2(10)
+ ROOM						    VARCHAR2(8)
+ CSIZE						    NUMBER(3)
+ ENROLLED					    NUMBER(3)
+ INSTRUCTORID					    VARCHAR2(5)
+ COURSECODE					    VARCHAR2(6)
+
+
+
+
+=======================================================================================================
+
+CREATE TABLE ENROLLMENT18(
+STUD_NO VARCHAR2(9) REFERENCES STUDENT18,
+SECTIONID VARCHAR2(7),
+GRADE VARCHAR2(2),
+TIMEOFFERED VARCHAR2(10),
+PRIMARY KEY(STUD_NO,SECTIONID),
+CONSTRAINT FOR_KEY FOREIGN KEY(TIMEOFFERED,SECTIONID) REFERENCES SECTION18);
+
+
+=======================================================================================================
+=======================================================================================================
+		INSERTING VALUES
+=======================================================================================================
+=======================================================================================================
+
+
+
+INSERT INTO STUDENT18 VALUES('&STUD_NO','&LNAME','&FNAME','&ADDRESS','&CITY','&STATE','&PINCODE');
+STUD_NO   LNAME 	  FNAME 	       ADDRESS						  CITY				 ST PINCODE
+--------- --------------- -------------------- -------------------------------------------------- ------------------------------ -- ---------
+001	  JOHN		  DOE		       FEDERAL CITY					  KOCHI 			 KL 683571
+002	  JANE		  DOE		       SSF APATMENTS					  KOCHI 			 KL 683544
+003	  MISHA 	  ABRAHAM	       ABC RESIDENTS					  KOCHI 			 KL 696664
+004	  MOHAMMED	  FARHAN	       FACT GARDENS					  KOCHI 			 KL 683501
+005	  MRIDULA	  AGNES 	       MALIEKAL 					  ALUVA 			 KL 683102
+
+
+
+INSERT INTO ENROLLMENT18 VALUES('&STUD_NO','&SECTIONID','&GRADE','&TIMEOFFERED')
+SELECT * FROM ENROLLMENT18;
+
+STUD_NO   SECTION GR TIMEOFFERE
+--------- ------- -- ----------
+001	  S005	  A  1-5
+002	  S003	  B  2-4
+003	  S001	  C  2-3
+004	  S001	  C  2-3
+005	  S004	  B  3-5
+
+INSERT INTO SECTION18 VALUES('&SECTIONID','&TIMEOFFERED','&DATEOFFERED','&ROOM','&CSIZE','&ENROLLED','&INSTRUCTORID','&COURSECODE')
+SELECT * FROM SECTION18;
+
+SECTION TIMEOFFERE DATEOFFERE ROOM	    CSIZE   ENROLLED INSTR COURSE
+------- ---------- ---------- -------- ---------- ---------- ----- ------
+S001	2-3	   MTWT       R101	       60	  25 I005  C004
+S002	2-4	   MWTF       R102	       50	  28 I003  C002
+S003	2-4	   MFSS       R103	       60	  35 I002  C001
+S004	3-5	   MSS	      R104	       40	  24 I001  C005
+S005	1-5	   MTTFS      R105	       55	  48 I004  C003
+
+
+
+
+
+
+
+SELECT * FROM EMPLOYEE18;
+
+EMPN NAME	DESIGNATIO BRANCH	 DEPT_NO
+---- ---------- ---------- ---------- ----------
+E001 Ram	Manager    Madras	       2
+E002 Santhosh	Supervisor Madurai	       1
+E003 Hari	Assistant  Trichy	       3
+E004 Maria	Supervisor Madurai	       3
+E005 Sandeep	Supervisor Salem	       4
+
+
+
+
+SELECT * FROM COURSE18
+  2  ;
+
+COURSE COURSETITLE		 COURSEHOURS
+------ ------------------------- -----------
+C001   DATABASE 			  40
+C002   UNIX				  30
+C003   PYTHON				  28
+C004   JAVA				  35
+C005   ANDROID				  38
+
+
+
+______________________________________________
+================================================================================================================
+QUESTIONS
+================================================================================================================
+1.
+SQL> ALTER TABLE ENROLLMENT18
+  2  MODIFY GRADE VARCHAR2(5);
+
+Table altered.
+
+SQL> describe enrollment18;
+ Name			 Null?	  Type
+ ----------------------- -------- ----------------
+ STUD_NO		 NOT NULL VARCHAR2(9)
+ SECTIONID		 NOT NULL VARCHAR2(7)
+ GRADE				  VARCHAR2(5)
+ TIMEOFFERED			  VARCHAR2(10)
+=======================================================================================================
+2.
+
+SQL> ALTER TABLE INSTRUCTOR18 ADD MAILID VARCHAR2(15);
+
+Table altered.
+
+SQL> describe instructor18;
+ Name			 Null?	  Type
+ ----------------------- -------- ----------------
+ INSTRUCTORID		 NOT NULL VARCHAR2(5)
+ LNAME				  VARCHAR2(30)
+ FNAME				  VARCHAR2(20)
+ PNUMBER			  VARCHAR2(20)
+ MAILID 			  VARCHAR2(15)
+
+=======================================================================================================
+3.
+SQL> INSERT INTO STUDENT18 VALUES('222','MOHAMMED','FARHAN','FACT GARDENS','ALUVA','KL','683585');   
+
+1 row created.
+
+Commit complete.
+
+SQL> select * from student18;
+
+STUD_NO   LNAME 	  FNAME 	       ADDRESS						  CITY				 ST PINCODE
+--------- --------------- -------------------- -------------------------------------------------- ------------------------------ -- ---------
+001	  JOHN		  DOE		       FEDERAL CITY					  KOCHI 			 KL 683571
+002	  JANE		  DOE		       SSF APATMENTS					  KOCHI 			 KL 683544
+003	  MISHA 	  ABRAHAM	       ABC RESIDENTS					  KOCHI 			 KL 696664
+004	  MOHAMMED	  FARHAN	       FACT GARDENS					  KOCHI 			 KL 683501
+005	  MRIDULA	  AGNES 	       MALIEKAL 					  ALUVA 			 KL 683102
+222	  MOHAMMED	  FARHAN	       FACT GARDENS					  ALUVA 			 KL 683585
+
+6 rows selected.
+
+=======================================================================================================
+4.
+SQL> INSERT INTO COURSE18 VALUES('C550','WEB DESIGN',5);
+
+1 row created.
+
+Commit complete.
+
+SQL> select * from course18;
+
+COURSE COURSETITLE		 COURSEHOURS
+------ ------------------------- -----------
+C001   DATABASE 			  40
+C002   UNIX				  30
+C003   PYTHON				  28
+C004   JAVA				  35
+C005   ANDROID				  38
+C550   WEB DESIGN			   5
+
+=======================================================================================================
+5
+SQL> INSERT INTO INSTRUCTOR18 VALUES('I111','SANJAY','MOHAN','0115566789','SANJAY@MAIL.COM');
+
+1 row created.
+
+Commit complete.
+
+SQL> select * from instructor18;
+
+STUD_NO   SECTION GRADE TIMEOFFERE
+--------- ------- ----- ----------
+001	  S005	  A	1-5
+002	  S003	  B	2-4
+003	  S001	  C	2-3
+004	  S001	  C	2-3
+005	  S004	  B	3-5
+222	  S255	  NULL	2-4
+
+6 rows selected.
+
+SQL> INSERT INTO SECTION18 VALUES('S255','2-4','MW','R102',35,0,'I111','C550');
+
+1 row created.
+
+Commit complete.
+
+SQL> select * from section18; 
+
+SECTION TIMEOFFERE DATEOFFERE ROOM	    CSIZE   ENROLLED INSTR COURSE
+------- ---------- ---------- -------- ---------- ---------- ----- ------
+S001	2-3	   MTWT       R101	       60	  25 I005  C004
+S002	2-4	   MWTF       R102	       50	  28 I003  C002
+S003	2-4	   MFSS       R103	       60	  35 I002  C001
+S004	3-5	   MSS	      R104	       40	  24 I001  C005
+S005	1-5	   MTTFS      R105	       55	  48 I004  C003
+S255	2-4	   MW	      R102	       35	   0 I111  C550
+
+6 rows selected.
+
+=======================================================================================================
+6
+SQL> INSERT INTO ENROLLMENT18 VALUES('222','S255','NULL','2-4');
+
+1 row created.
+
+Commit complete.
+
+SQL> select * from enrollment18;
+
+STUD_NO   SECTION GRADE TIMEOFFERE
+--------- ------- ----- ----------
+001	  S005	  A	1-5
+002	  S003	  B	2-4
+003	  S001	  C	2-3
+004	  S001	  C	2-3
+005	  S004	  B	3-5
+222	  S255	  NULL	2-4
+
+6 rows selected.
+
+=======================================================================================================
+13
+
+SQL> create sequence sequence1
+increment by 1
+start with 1
+maxvalue 10
+minvalue 1
+order;
+
+  2    3    4    5    6  
+Sequence created.
+
+=======================================================================================================
+14
+
+CREATE VIEW INSTRUCTOR_SECTION_VIEW AS
+SELECT LNAME,FNAME,TIMEOFFERED,DATEOFFERED,COURSE18.COURSECODE,COURSETITLE 
+FROM SECTION18,COURSE18,INSTRUCTOR18
+WHERE(SECTION18.COURSECODE = COURSE18.COURSECODE AND SECTION18.INSTRUCTORID = INSTRUCTOR18.INSTRUCTORID);
+
+View created.
+
+
+SQL> SELECT * FROM INSTRUCTOR_SECTION_VIEW;
+
+LNAME			       FNAME		    TIMEOFFERE DATEOFFERE COURSE COURSETITLE
+------------------------------ -------------------- ---------- ---------- ------ -------------------------
+PETER			       ADAMS		    3-5        MSS	  C005	 ANDROID
+JOHNNY			       ENGLISH		    2-4        MFSS	  C001	 DATABASE
+TOM			       CRUISE		    2-4        MWTF	  C002	 UNIX
+STEVE			       JOBS		    1-5        MTTFS	  C003	 PYTHON
+BILL			       GATES		    2-3        MTWT	  C004	 JAVA
+SANJAY			       MOHAN		    2-4        MW	  C550	 WEB DESIGN
+
+6 rows selected.
+
+
+=======================================================================================================
+
+15
+SQL> UPDATE SECTION18 SET CSIZE = CSIZE + (0.10 * CSIZE);
+
+6 rows updated.
+
+Commit complete.
+SQL> SELECT * FROM SECTION18;
+
+SECTION TIMEOFFERE DATEOFFERE ROOM	    CSIZE   ENROLLED INSTR COURSE
+------- ---------- ---------- -------- ---------- ---------- ----- ------
+S001	2-3	   MTWT       R101	       66	  25 I005  C004
+S002	2-4	   MWTF       R102	       55	  28 I003  C002
+S003	2-4	   MFSS       R103	       66	  35 I002  C001
+S004	3-5	   MSS	      R104	       44	  24 I001  C005
+S005	1-5	   MTTFS      R105	       61	  48 I004  C003
+S255	2-4	   MW	      R102	       39	   0 I111  C550
+
+6 rows selected.
+
+=======================================================================================================
+==========
+19-08-2015
+==========
+=======================================================================================================
+
+16
+
+SQL> UPDATE SECTION18 SET TIMEOFFERED = '2-4',DATEOFFERED ='MW' WHERE SECTIONID = 'S255'
+  2  ;
+
+1 row updated.
+
+=======================================================================================================
+17.
+Reinserted
+INSERT INTO ENROLLMENT18 VALUES('&STUD_NO','&SECTIONID','&GRADE','&TIMEOFFERED')
+
+
+SQL> DELETE FROM ENROLLMENT18 WHERE SECTIONID = 'S002';
+
+1 row deleted.
+
+SQL> DELETE FROM SECTION18 WHERE SECTIONID = 'S002';
+
+1 row deleted.
+
+=======================================================================================================
+18.
+SQL> DELETE FROM COURSE18
+  2  WHERE COURSECODE = 'C001';
+DELETE FROM COURSE18
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (CS42813.SYS_C0026499) violated - child record
+found
+=======================================================================================================
+19
+SQL> CREATE INDEX INDEX1 ON SECTION18(INSTRUCTORID);
+
+Index created.
+
+SQL> CREATE INDEX INDEX2 ON SECTION18(COURSECODE);
+
+Index created.
+
+SQL> CREATE INDEX INDEX3 ON ENROLLMENT18(SECTIONID);
+
+Index created.
+
+SQL> CREATE INDEX INDEX4 ON ENROLLMENT18(TIMEOFFERED);
+
+Index created.
+=======================================================================================================
+20
+SQL> SELECT SECTIONID,TIMEOFFERED,DATEOFFERED,COURSECODE
+FROM SECTION18
+WHERE CSIZE BETWEEN 60 AND 70
+AND DATEOFFERED LIKE '%S%';
+  2    3    4  
+SECTION TIMEOFFERE DATEOFFERE COURSE
+------- ---------- ---------- ------
+S003	2-4	   MFSS       C001
+S005	1-5	   MTTFS      C003
+=======================================================================================================
+21
+SQL> SELECT COURSECODE,COURSETITLE,COURSEHOURS               
+FROM COURSE18
+WHERE COURSEHOURS = 40 ORDER BY COURSECODE DESC;
+  2    3  
+COURSE COURSETITLE		 COURSEHOURS
+------ ------------------------- -----------
+C001   DATABASE 			  40
+=======================================================================================================
+22
+SQL> SELECT INSTRUCTORID, SUM(CSIZE)
+FROM SECTION18      
+GROUP BY INSTRUCTORID ORDER BY SUM(CSIZE);  2    3  
+
+INSTR SUM(CSIZE)
+----- ----------
+I111	      39
+I001	      44
+I004	      61
+I005	      66
+I002	      66
+=======================================================================================================
+23
+SQL> SELECT STUD_NO,SECTIONID,GRADE      
+FROM ENROLLMENT18
+WHERE GRADE LIKE 'B%';  2    3  
+
+STUD_NO   SECTION GRADE
+--------- ------- -----
+002	  S003	  B
+005	  S004	  B
+=======================================================================================================
+24
+SQL> SELECT SECTION18.COURSECODE,AVG(CSIZE)
+FROM SECTION18,COURSE18
+WHERE(SECTION18.COURSECODE=COURSE18.COURSECODE)
+GROUP BY SECTION18.COURSECODE
+  2    3    4    5  ;
+
+COURSE AVG(CSIZE)
+------ ----------
+C001	       66
+C003	       61
+C004	       66
+C005	       44
+C550	       39
+=======================================================================================================
+25
+SQL> SELECT INSTRUCTOR18.LNAME,SECTION18.TIMEOFFERED,SECTION18.DATEOFFERED,SECTION18.ROOM FROM INSTRUCTOR18,SECTION18 WHERE INSTRUCTOR18.INSTRUCTORID = SECTION18.INSTRUCTORID
+  2  ;
+
+LNAME			       TIMEOFFERE DATEOFFERE ROOM
+------------------------------ ---------- ---------- --------
+PETER			       3-5	  MSS	     R104
+JOHNNY			       2-4	  MFSS	     R103
+STEVE			       1-5	  MTTFS      R105
+BILL			       2-3	  MTWT	     R101
+SANJAY			       2-4	  MW	     R102
+
+
+=======================================================================================================
+26.
+SQL> SELECT STUD_NO,FNAME,LNAME
+FROM STUDENT18
+WHERE(STUD_NO NOT IN (SELECT STUD_NO FROM ENROLLMENT18));
+  2    3  
+STUD_NO   FNAME 	       LNAME
+--------- -------------------- ---------------
+S007	  DOE		       JOHN
+
+
+=======================================================================================================

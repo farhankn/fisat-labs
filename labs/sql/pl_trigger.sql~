@@ -1,0 +1,22 @@
+--Trigger for client_master table2.
+
+create or replace trigger client24 
+	before delete or update 
+	on client_master24 
+	referencing old as o new as n 
+	for each row
+declare
+		op varchar(10);
+begin
+		if deleting then
+			op:='Delete';
+		elsif updating then
+			op:='Update';
+		end if;
+		insert into audit_client24 values(:o.c_no,:o.name,:o.bal_due,op,sysdate);
+end;
+
+/*  SQL> @pl_trigger.sql;
+ 18  /
+
+Trigger created.  */

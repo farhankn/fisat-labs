@@ -1,0 +1,26 @@
+import java.io.*;
+import java.net.*;
+
+class uniclient
+{
+	public static void main(String[] args)
+	{
+		try
+		{
+			String str=;
+			Socket s1 = new Socket("localhost",3333);
+			DataOutputStream dout = new DataOutputStream(s1.getOutputStream());
+			do
+			{
+				System.out.print("Enter the string: ");
+				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+				str = br.readLine();
+				
+				dout.writeBytes(str+'\n');
+			}while(!str.equals("quit"));
+		}
+		catch(Exception e)
+		{}
+	}
+}
+

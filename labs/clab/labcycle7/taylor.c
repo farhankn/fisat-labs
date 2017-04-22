@@ -1,0 +1,89 @@
+//Program to Evaluate Taylor Series Expansion e(x),sinx,cosx using Recursion
+#include<stdio.h>
+#include<math.h>
+void e();
+void sin1();
+void cos1();
+int fact(int );
+main()
+{
+ int m;
+ char ch='y';
+ do
+   {
+ printf("\n\tProgram to Evaluate Taylor Series Expansion e(x),sinx,cosx using Recursion");
+ printf("\n\nMenu:");
+ printf("\nFind taylor series expansion of\n1.e(x)\n2.sinx\n3.cosx\n4.exit\nEnter a Choice: ");
+ scanf("%d",&m);
+ switch(m)
+      {
+      case 1:e();
+             break;
+      case 2:sin1();
+	      break;
+      case 3:cos1();
+	      break;
+      case 4:exit(0);
+	      break;
+      } 
+ printf("\nDo you wish to continue (y/n)?: ");
+ scanf("%s",&ch);
+   }while(ch=='y');
+}
+void e()
+{
+  float i;
+  float x,n,s=1.0;
+  printf("\nenter the value for x,n");
+  scanf("%f%f",&x,&n);
+  for(i=1;i<n;i++)
+  {
+    s=s+(pow(-1,i)*(pow(x,i)/fact(i)));
+    
+  }
+  printf("\nthe sum of series is %f",s);
+}
+void sin1()
+{
+  float s=0.0,x,f=1,n,r=1;
+  int i;
+  printf("enter the values for x,n\n");
+  scanf("%f%f",&x,&n);
+  x=(x*3.14)/180;
+  for(i=1;i<=n;i++)
+    {
+      s=s+(f*(pow(x,r))/fact(r));
+      r=r+2;
+      f=f*-1;
+      
+    }
+  printf("the sum is %f\n",s);
+}
+void cos1()
+{
+  float i,x,n,s=1,f,j;
+  float sum=0,t;
+  
+  printf("enter the values for x,n");
+  scanf("%f%f",&x,&n);
+  x=(x*3.14)/180;
+  for(i=0,j=0;j<n;j++,i=i+2)
+    {
+      f=fact(i);
+      t=pow(x,i)/f;
+      sum=sum+(t*s);
+      s=s*(-1);
+    }
+  printf("the sum is %f\n",sum);
+}
+int fact(int n)
+{
+  if(n==1||n==0)
+    return 1;
+  else
+    return n*(fact(n-1));
+}
+  
+ 
+             
+    

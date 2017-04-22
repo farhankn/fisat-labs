@@ -1,0 +1,20 @@
+--Function to increment salary.
+create or replace function inc_salary
+	(eno in varchar,incr in number)
+	 return number is
+	new number(9,2);		
+	sal number(9,2);
+begin
+		eno:=@eno
+		incr:=@incr;
+		select salary into sal from emp18 where eno=emp_id;
+		new:=sal+incr;
+		update table emp18 set new_sal=new where eno=emp_id;
+		update table emp18 set up_date=sysdate where eno=emp_id;
+		return new;
+	exception
+		when no_data_found then
+			dbms_output.put_line('Invalid Employee number.');	
+	commit;
+end;
+‬ 

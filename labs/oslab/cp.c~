@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+int main()
+{
+  char src[100], dest[100], buf[500];
+  int ptr1, ptr2;
+  struct stat sb;
+
+
+  printf("\nEnter the Source File: ");
+  scanf("%s",&src);
+  printf("\nEnter the Destination File: ");
+  scanf("%s",&dest);
+
+
+
+  
+  ptr1 = open(src, O_RDONLY);
+  ptr2 = open(dest, O_RDWR|O_APPEND,O_CREAT);
+
+  fstat(ptr1, &sb);
+
+  read(ptr1, buf, sb.st_size);
+  write(ptr2, buf, sb.st_size);
+
+  printf("\n Successfully Written t File");
+  return 0;
+}

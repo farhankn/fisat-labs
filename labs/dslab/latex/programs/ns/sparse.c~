@@ -1,0 +1,38 @@
+//Program to find the Triple Representation of a Sparse Matrix.
+#include<stdio.h>
+void main()
+{
+  int row,col,i,j,n=0,a[20][20],s[20][20];
+  printf("Enter the row and column:");
+  scanf("%d %d",&row,&col);
+  printf("Enter the sparse matrix:");
+  for(i=0;i<row;i++)
+    for(j=0;j<col;j++)
+      {
+	scanf("%d",&a[i][j]);
+	if(a[i][j]!=0)
+	  {
+	    n=n+1;
+	    s[n][0]=i;
+	    s[n][1]=j;
+	    s[n][2]=a[i][j];
+	  }
+      }
+  s[0][0]=row;
+  s[0][1]=col;
+  s[0][2]=n;
+  printf("The sparse matrix is as follows:\n");
+  for(i=0;i<row;i++)
+    {
+      for(j=0;j<col;j++)
+	printf("%d\t",a[i][j]);
+      printf("\n");
+    }
+  printf("The Triple Representation is as follows:\n");
+  for(i=0;i<n;i++)
+    {
+      for(j=0;j<4;j++)
+	printf("%d\t",s[i][j]);
+      printf("\n");
+    }
+}

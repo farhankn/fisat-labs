@@ -1,0 +1,6 @@
+ int main()
+ {
+ int a,b,c ;
+ c= 3 + 3.14 ;
+ a=a+b ;
+ }

@@ -1,0 +1,26 @@
+#include<stdio.h>
+main()
+{
+  int number,sum=0,reverse=0,i,remainder;
+  printf("Enter Number ");
+  scanf("%d",&number);
+  for(i=0 ; number>0; i++)
+   {
+    remainder=number%10;
+    sum=sum+remainder;
+    reverse=(reverse*10)+remainder;
+    number=number/10;
+   }
+  printf("\n Reversed Number is %d ands sum of digits is %d\n",reverse,sum);
+}
+
+Read value of x and number of terms N
+For iterative computation of the sum, we will set
+- value of term to 1 (the first term)
+- sum to 0
+- a counter variable k to 1
+At the begining of each iteration, we will check
+- if no of terms is less than or equal to N do the followiing
+sum = sum + term;
+term = (term * (-x*x))
+

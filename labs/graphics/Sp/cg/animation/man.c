@@ -1,0 +1,52 @@
+#include<GL/glut.h>
+#include "glsupport.h"
+int transplane=600,trans_par=100,trans_par_forward=0,trans_par_up=600,angle=0,flag=0;
+void man()
+{
+	setcolor(15);
+	circle(150,650,30);
+	line(147,520,147,620);
+	line(147,520,100,500);
+	line(147,520,194,500);
+	line(147,620,100,600);
+	line(147,620,194,600);
+	
+}
+
+
+void time_update()
+{
+
+
+	
+}
+void display(void)
+{	
+	
+
+	glClear(GL_COLOR_BUFFER_BIT);
+	glPushMatrix();
+	man();
+	glPopMatrix();
+	glEnd();
+	glFlush();
+	
+
+}
+int main(int argc,char **argv)
+{
+	glutInit(&argc,argv);
+	glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
+	glutInitWindowSize(500,500);
+	glutInitWindowPosition(100,100);
+	glutCreateWindow("CAR");
+	glClearColor(0.0,0.0,0.0,0.0);
+	//glViewport(0,0,800,800);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(-100,800,-100,800);
+	glutDisplayFunc(display);
+	//glutTimerFunc(15,time_update,0);
+	glutMainLoop();
+	return 0;
+}

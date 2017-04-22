@@ -1,0 +1,10 @@
+#include<stdio.h>
+main()
+{
+  int a=0;
+  while(a<256) 
+    { 
+ printf("%d is %c \t",a,a);
+ a++;    
+    }
+}

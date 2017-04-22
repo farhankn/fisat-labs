@@ -1,0 +1,26 @@
+# Fdb version 3
+["dvips"] 0 "tostudents.dvi" "tostudents.ps" "tostudents" 
+  "tostudents.dvi" 0 -1 0 "latex"
+  (generated)
+  "tostudents.ps"
+["latex"] 1460550238 "tostudents.tex" "tostudents.dvi" "tostudents" 
+  "/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty" 1335995445 8253 3bdedc8409aa5d290a2339be6f09af03 ""
+  "/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty" 1335995445 18425 775b341047ce304520cc7c11ca41392e ""
+  "/usr/share/texlive/texmf-dist/tex/latex/base/report.cls" 1254151887 23630 e94bcdae2fe64080c9cd6c5639d834da ""
+  "/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo" 1254151887 9053 a28d9b3c915d12545f3d5e7c4986be20 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty" 1254151804 14183 42a8fc761b806986eef292369afc2988 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty" 1156702488 7882 3bd78469d444e8d494e27cfd7ca92719 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty" 1156702488 2266 7054435e4584a41cf53b0a7ca624d0cb ""
+  "/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty" 1156702488 3153 c50e6bd54d2dd3933fc52bcf369bec4a ""
+  "/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg" 1278958963 3563 d35e897cae3b8c6848f6677b73370b54 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def" 1306616590 55368 3c8a0d99822330f2dfabc0dfb09ce897 ""
+  "tostudents.aux" 1456484734 8 a94a2480d3289e625eea47cd1b285758 ""
+  "tostudents.tex" 1456484725 3441 293c2ce9f82fa81820831ded1f637848 ""
+  (generated)
+  "tostudents.dvi"
+  "tostudents.aux"
+  "tostudents.log"
+["ps2pdf"] 0 "tostudents.ps" "tostudents.pdf" "tostudents" 
+  "tostudents.ps" 0 -1 0 "dvips"
+  (generated)
+  "tostudents.pdf"

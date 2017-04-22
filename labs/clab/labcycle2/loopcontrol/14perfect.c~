@@ -1,0 +1,14 @@
+//To display the factors of an entered number
+#include<stdio.h>
+main()
+{
+  int number,i;
+  printf("Enter Number ");
+  scanf("%d",&number);
+  for(i=2 ; i<=(number/2); i++)
+   {
+     if(number%i==0)
+       printf(" %d ",i);
+   }
+  printf(" are the factors");
+}

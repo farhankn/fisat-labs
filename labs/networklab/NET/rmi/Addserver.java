@@ -1,0 +1,16 @@
+import java.rmi.*;
+public class Addserver 
+{
+	public static void main(String args[])
+	{
+		try
+		{
+			AddServerImp i= new AddServerImp();
+			Naming.rebind("Addserver",i);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+}

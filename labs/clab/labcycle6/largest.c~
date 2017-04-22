@@ -1,0 +1,26 @@
+//Program to find largest and Smallest of Elements in a Matrix using Pointers
+#include<stdio.h>
+main()
+{
+  int *a,*n,*ch;
+  n = (int *)malloc(sizeof(int));
+  printf("Enter the Size of the Array: ");
+  scanf("%d",n);
+  printf("Enter the Elements of the Array: ");
+
+  for(i = 0 ;i < n; i++)
+      scanf("%d", a[*i]);
+  do
+    {
+      printf("\nMenu\n1.Largest\n2.Smallest\n3.Exit");
+      scanf("%d",ch);
+      
+      switch(*ch)
+	{
+	case 1 : printf("%d",largest(a,n));
+	  break;
+	case 2 : printf("%d",smallest(a,n));
+	  break;
+	case 3 : printf("\n Exiting.... \n");
+	  break;
+	default : print("\nEnter a 

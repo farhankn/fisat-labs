@@ -1,0 +1,14 @@
+declare
+	n number(2);
+	res number(2):=0;
+	i number(2);
+begin
+dbms_output.put_line('enter number');
+n:=&n;
+	for i in 0..n
+	loop
+		res:=res+i;	
+	end loop;
+	
+dbms_output.put_line('sum',res);
+end;

@@ -1,0 +1,72 @@
+//Program to push,pop and display the elements of a matrix.
+#include<stdio.h>
+int stack[50],top=-1,max;
+void push();
+void pop();
+void display();
+void main()
+{
+  int op;
+  printf("Enter the maximum size of the stack:");
+  scanf("%d",&max);
+  do
+    {
+      
+      printf("\t\tMENU\n\t\t****\n\t1.PUSH\n\t2.POP\n\t3.DISPLAY\n\t4.EXIT");
+      printf("\nEnter your choice:");
+      scanf("%d",&op);
+      switch(op)
+	{
+	case 1:push();
+	  break;
+	case 2:pop();
+	  break;
+	case 3:display();
+	  break;
+	case 4:break;
+	default:printf("Invalid choice!!\n");
+	}
+    }while(op!=4);
+}
+
+//Function to push elements.
+void push()
+{
+  printf("Enter the element:");
+  if((1+top)>(max-1))
+    printf("Stack overflow!!\n");
+  else
+    {
+      top++;
+      scanf("%d",&stack[top]);
+    }
+}
+
+//Function to pop elements.
+void pop()
+{
+  int ele;
+  if(top<0)
+    printf("Stack underflow!!\n");
+  else
+    {
+      ele=stack[top];
+      top--;
+      printf("The deleted element is %d.\n",ele);
+    }
+}
+
+//Function to display elements.
+void display()
+{
+  int i;
+  if(top<0)
+    printf("Stack underflow!!\n");
+  else
+    {
+      printf("The stack is as follows:\n");
+      for(i=0;i<=top;i++)
+	printf("%d\t",stack[i]);
+      printf("\n");
+    }
+}

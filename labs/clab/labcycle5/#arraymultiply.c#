@@ -1,0 +1,45 @@
+// Program to Multiply two Arrays
+#include<stdio.h>
+void multiply(int a[int][int],int b[int][int]);
+int m,n,o,p;
+main()
+{
+  int a[100][100],b[100][100],i,j;
+    printf("Enter the Rows and Colums of Matrix 1");
+  scanf("%d,%d",&m,&n);
+  printf("\nEnter element in Matrix 1");
+  for(i = 0; i<m; i++)
+    for(j=0; j<n; j++)
+      scanf("%d",&a[i][j]);
+  printf("Enter Rows and Columns of Matrix 2");
+  scanf("%d,%d",&o,&p);
+  printf("\nEnter elements in Matrix 2");
+  for(i=0;i<o;i++)
+    for(j=0;j<p;j++)
+      scanf("%d",&b[i][j]);
+  multiply(a[m][n],b[o][p]);
+}
+
+void multiply(int a[int][int],int b[int][int])
+{
+  int c[m][p],i,j,k;
+    if(n=o)
+      {
+	for(i=0;i<m;i++)
+	  for(j=0;j<p;j++)
+	    for(k=0;k<n-1;k++)
+	      c[i][j]=a[i][k]*b[k][j];
+
+	printf("\n\nThe Matrix after Multiplication is \n");
+	for(i=0;i<m;i++)
+	  {
+	    for(j=0;j<p;j++)
+	      printf("c[i][j]");
+	    printf("\n");
+	  }
+      }
+    else
+      {
+	printf("\nThe Array cannot be multiplied");
+      }
+}

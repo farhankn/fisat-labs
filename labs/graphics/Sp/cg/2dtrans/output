@@ -1,0 +1,197 @@
+42813@user:/mnt/42813/cg/2dtrans$ ./2d
+MENU
+1.Line Transformation
+2.Polygon Transformation
+3.Exit
+Enter your choice : 1
+MENU
+1.Translation
+2.Scaling
+3.Rotation
+4.Exit
+Enter your choice :1
+Enter the line coordinates (xa,ya,xb,yb) : 10
+20
+40
+50
+
+Enter the translation distances (tx,ty) : 20
+40
+MENU
+1.Line Transformation
+2.Polygon Transformation
+3.Exit
+Enter your choice : 1
+MENU
+1.Translation
+2.Scaling
+3.Rotation
+4.Exit
+Enter your choice :1
+Enter the line coordinates (xa,ya,xb,yb) : 10
+20
+40
+50
+
+Enter the translation distances (tx,ty) : 20
+40
+
+
+
+
+
+
+
+MENU
+1.Line Transformation
+2.Polygon Transformation
+3.Exit
+Enter your choice : 1
+MENU
+1.Translation
+2.Scaling
+3.Rotation
+4.Exit
+Enter your choice :2
+Enter the line coordinates (xa,ya,xb,yb) : 5
+10
+20
+30
+
+Enter the scaling factors (sx,sy) : 2
+2
+Enter the fixed point about which scaling is to be done (xf,yf) : 30
+30
+
+
+MENU
+1.Line Transformation
+2.Polygon Transformation
+3.Exit
+Enter your choice : 1
+MENU
+1.Translation
+2.Scaling
+3.Rotation
+4.Exit
+Enter your choice :3
+Enter the line coordinates (xa,ya,xb,yb) : 10
+20
+50
+60
+Enter the rotation angle
+90
+Enter the fixed point about which rotation is to be done (xf,yf) : 10
+20
+
+
+
+
+
+
+
+
+
+
+
+
+
+MENU
+1.Line Transformation
+2.Polygon Transformation
+3.Exit
+Enter your choice : 2
+MENU
+1.Translation
+2.Scaling
+3.Rotation
+4.Exit
+Enter your choice :1
+
+Enter the no. of polygon vertices 3
+Enter the polygon vertices : 10
+10
+30
+30
+30
+10
+
+Enter the translation distances (tx,ty) : 20
+40
+
+
+
+
+MENU
+1.Line Transformation
+2.Polygon Transformation
+3.Exit
+Enter your choice : 2
+MENU
+1.Translation
+2.Scaling
+3.Rotation
+4.Exit
+Enter your choice :2
+
+Enter the no. of polygon vertices 3 
+Enter the polygon vertices : 10
+10
+30
+30
+30
+10
+
+Enter the scaling factors (sx,sy) : 2
+3
+Enter the fixed point about which scaling is to be done (xf,yf) : 40
+40
+
+
+
+
+
+
+
+
+
+MENU
+1.Line Transformation
+2.Polygon Transformation
+3.Exit
+Enter your choice : 2
+MENU
+1.Translation
+2.Scaling
+3.Rotation
+4.Exit
+Enter your choice :3
+
+Enter the no. of polygon vertices 3
+Enter the polygon vertices : 10
+10
+30
+30
+30
+10
+Enter the rotation angle
+90
+Enter the fixed point about which rotation is to be done (xf,yf) : 0
+0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

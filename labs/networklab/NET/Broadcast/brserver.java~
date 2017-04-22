@@ -1,0 +1,70 @@
+import java.awt.*;
+import java.net.*;
+import java.io.*;
+import java.awt.event.*;
+class brserver implements ActionListener,Runnable
+{
+    Frame f;
+    TextField tf;
+    static Thread t;
+    Button b;
+    DataOutputStream dout;
+    TextArea ta;
+    DataInputStream din;
+	
+    String msg;
+    String m;
+    ServerSocket ss;
+    int i=0,j;
+    Socket s3[]=new Socket[10];
+    brserver()
+    {
+	try
+	{
+	    f=new Frame();
+	    tf=new TextField(20);
+	    b=new Button("send");
+	    ta=new TextArea();
+	    f.setLayout(new FlowLayout());
+	    f.setVisible(true);
+	    f.setSize(500,500);		
+	    f.add(tf);
+	    f.add(b);
+	    b.addActionListener(this);
+	    ss=new ServerSocket(2222);
+	    while(true)
+	    {
+	        s3[i]=ss.accept();
+	        i++;
+	    }
+	}
+	
+	catch(Exception e){}
+		
+    }
+    public void actionPerformed(ActionEvent ae)
+    {
+	try
+	{
+	    for(j=0;j<i;j++)
+	    {
+		msg=tf.getText();
+	        dout=new DataOutputStream(s3[j].getOutputStream());
+	        dout.writeBytes(msg+"\n");
+	    }
+	}
+	catch(Exception e){}
+    }
+    public void run()
+    {}
+    public static void main(String[] args)
+    {
+	try
+	{
+	    brserver s1=new brserver();
+	    t=new Thread(s1);
+	    t.start();
+	}
+	catch(Exception e){}
+    }
+}

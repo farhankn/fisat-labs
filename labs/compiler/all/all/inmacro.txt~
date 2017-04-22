@@ -1,0 +1,10 @@
+#include<stdio.h>
+
+#define pi 3.14
+#define add() {a=a+b}
+int main()
+{
+	int a,b,c ;
+	c= 3 + pi ;
+	add() ;
+}

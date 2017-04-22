@@ -1,0 +1,20 @@
+--NZ program
+
+declare 
+	bal number(9,2);
+	br varchar(15);
+	nm varchar(15);
+	ad varchar(15);
+begin
+	nm:='&nm';	
+	bal:=&bal;
+	br:='&br';
+	ad:='&ad';
+	insert into account18 values(nm,accno18.nextval,bal,br);
+	select address into ad from customer_trig18 where name=nm; 
+	
+exception 
+	when no_data_found then
+		insert into customer_trig18 values(nm,ad);				 
+commit;	
+end;

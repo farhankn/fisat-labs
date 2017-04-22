@@ -1,0 +1,10 @@
+
+
+sum()
+{
+    c=eval $1+$2
+    echo $c
+}
+
+
+sum 1 2

@@ -1,0 +1,66 @@
+//Program to sort an array using Merge sort.
+#include<stdio.h>
+void mergesort(int low,int high);
+void merge(int low,int mid,int high);
+int a[30];
+void main()
+{
+  int low=0,high, n,i;
+  printf("Enter the size of the array:");
+  scanf("%d",&n);
+  printf("Enter the elements of the array:\n");
+  for(i=1;i<=n;i++)
+    scanf("%d",&a[i]);
+  high=n;
+  mergesort(low,high);
+  printf("The array after sorting is:\n");
+  for(i=1;i<=n;i++)
+   printf("%d\t",a[i]);
+  printf("\n");
+}
+
+//Function for Merge sort.
+void mergesort(int low,int high)
+{ 
+  int mid;
+  if(low<high)
+    {
+      mid=(low+high)/2;
+      mergesort(low,mid);
+      mergesort(mid+1,high);
+      merge(low,mid,high);
+    }
+}
+//Function to merge two arrays.
+void merge(int low,int mid,int high)
+{
+  int k=low,i=low,j=mid+1,b[30];
+  while(i<=mid && j<=high)
+    {
+      if(a[i]<=a[j])
+	{
+	  b[k]=a[i];
+	  i++;
+	}
+      else
+	{
+	  b[k]=a[j];
+	  j++;
+	}
+      k++;
+    }
+  while(i<=mid)
+    {
+      b[k]=a[i]; 
+      k++;
+      i++;
+    }
+  while(j<=high)
+    {
+     b[k]=a[j];
+     k++;
+     j++;
+    }
+ for(i=low;i<=high;i++)
+   a[i]=b[i];
+}

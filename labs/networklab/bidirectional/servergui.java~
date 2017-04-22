@@ -1,0 +1,30 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+class ServerGui{
+
+ServerGui()
+{
+Frame f = new Frame("Server");
+TextField t1 = new TextField("Enter text here");
+Button b1 = new Button();
+b1.setLabel("Send");
+TextArea ta = new TextArea();
+f.add(t1);
+f.add(b1);
+f.add(ta);
+f.setLayout(new FlowLayout());
+f.setVisible(true);
+f.setSize(600,300);
+}
+
+public static void main(String[] args) {
+ServerGui c1 = new ServerGui();
+
+}	
+
+}
+
+
+

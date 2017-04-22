@@ -1,0 +1,151 @@
+//Program to convert an infix expression to prefix.
+#include<stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+int top=-1;
+char infix[50],stack[50],pre[50];
+void push(char ele);
+char pop();
+int isp(char ch);
+int icp(char c);
+void main()
+{
+  int i=0,j=0,k=0,l,len1,len2;
+  char item,x,temp;
+  printf("Enter the infix expression:");
+  scanf("%s",infix);
+  push(')');
+  while(infix[k]!='\0')  //length
+    k++;
+  len1=k;
+  for(k=0,l=len1-1;k<len1/2;k++,l--)
+    {
+      temp=infix[k];
+      infix[k]=infix[l];
+      infix[l]=temp;
+    }
+  infix[len1]='(';
+  infix[len1+1]='\0';
+  while(infix[i]!='\0')
+    {
+      while(top>-1)
+	{
+	  item=infix[i++];
+	  if(isalnum(item))
+	    {
+	      pre[j]=item;
+	      j++;
+	    }
+	  else if(item=='(')
+	    {
+	      x=pop();
+	      while(x!=')')
+		{
+		  pre[j]=x;
+		  j++;
+		  x=pop();
+		}
+	    }
+	  else if(isp(stack[top])>icp(item))
+	    {
+	      x=pop();
+	      while(isp(x)>icp(item))
+		{
+		  pre[j]=x;
+		  j++;
+		  x=pop();
+		}
+	      push(x);
+	      push(item);
+	    }
+	  else if(isp(stack[top])<=icp(item))
+	    {
+	      push(item);
+	    }
+	  else
+	    printf("Invalid expression.\n");
+	}
+    }
+  pre[j]='\0';
+  k=0;
+  while(pre[k]!='\0')  //length
+    k++;
+  len2=k;
+  for(k=0,l=len2-1;k<len2/2;k++,l--)
+    {
+      temp=pre[k];
+      pre[k]=pre[l];
+      pre[l]=temp;
+    }
+  printf("The prefix expression is as follows:\n");
+  __fpurge(stdin);
+  puts(pre);
+}
+
+//Function to push elements.
+void push(char ele)
+{
+  if(top>50)
+    printf("Stack overflow!!\n");
+  else
+    {
+      
+      top++;
+      stack[top]=ele;
+      
+    }
+}
+
+//Function to pop elements
+char pop()
+{
+  char ele;
+  if(top<0)
+    printf("Stack underflow!!\n");
+  else
+    {
+      ele=stack[top];
+      top--;
+      return ele;
+    }
+}
+
+//ISP
+int isp(char ch)
+{
+ switch(ch)
+	{
+	case '^':return 3;
+	  break;
+	case '*':return 2;
+	  break;
+	case '/':return 2;
+	  break;
+	case '+':return 1;
+		break;
+	case '-':return 1;
+	  break;
+	case ')':return 0;
+	  break;	
+		}
+}
+//ICP
+int icp(char c)
+{
+ switch(c)
+	{
+	case '^':return 4;
+	  break;
+	case '*':return 2;
+	  break;
+	case '/':return 2;
+	  break;
+	case '+':return 1;
+		break;
+	case '-':return 1;
+	  break;
+	case ')':return 4;
+	  break;	
+		}
+}
+

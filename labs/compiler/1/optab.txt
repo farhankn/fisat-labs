@@ -1,0 +1,5 @@
+LDA	15	
+STA	32	
+LDCH	12
+STCH	13
+

@@ -1,0 +1,10 @@
+
+.data
+	a	db	?
+	b	db	?
+	c	db	?
+.code
+	LD R0,b
+	LD R1,c
+	MUL R0,R1
+	MOV a,R0

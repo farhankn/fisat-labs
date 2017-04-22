@@ -1,0 +1,180 @@
+#include<stdio.h>
+struct graph{
+  int v;
+  struct graph *link;
+};
+struct graph *gptr[10],temp;
+
+int top=-1,op[20],n,cnt,ss=20,qs=20,stack[20],q[20],front=0,rear=0;
+int search(int a)
+{
+  int f=0;
+  for(i=0;i<=cnt;i++)
+    {
+      if(op[i]==a)
+	f=1;
+    }
+  return f;
+
+}
+void insert(int a)
+{
+  cnt++;
+  op[cnt]=a;
+}
+
+void push(int a)
+{
+  if(top>ss)
+    printf("not possible");
+  else
+    {
+      top++;
+      stack[top]=a;
+}
+}
+int pop()
+{int x;
+  if(top<0)
+    return;
+  else
+    {
+      x=stack[top];
+      top--;
+      return x;
+}
+}
+void enq(int a);
+{
+  if(rear>qs)
+    return;
+  else
+    {
+      rear++;
+      q[rear]=a;
+      if(front==0)
+	front++;
+    }
+}
+int deq()
+{int x;
+  if(front==0)
+    return;
+  else
+    {
+      x=q[front];
+      front++;
+      if(front==rear)
+	{front=0;
+	  rear=0;
+	}
+}
+}
+  void dfs(int v)
+  {int u;
+    cnt=-1;
+    struct graph *ptr = (struct graph *) malloc(sizeof(struct graph);
+    if(gptr==NULL)
+      printf("Grpah is emptty");
+    else
+      {
+	u=v;
+	push(u);
+	while(top!=-1)
+	  {
+	    u=pop();
+	    if(search(u)==0)
+	      {
+		insert(u);
+		ptr=gptr[u];
+		while(ptr!=NULL)
+		  { push(ptr->v);
+		ptr=ptr->link;
+		  }
+	      }
+	  }
+}
+}
+
+      void bfs(int v);
+    {int u;
+      cnt=-1;
+      struct graph *ptr=(struct graph *) malloc(sizeof(struct graph));
+
+      if(gptr==NULL)
+	printf("Graph is empty");
+      else{
+	u=v;
+	enq(u);
+	while(front!=0)
+	  {
+	    u=deq();
+	    if(search(u)==0)
+	      {
+		insert(u);
+		ptr=gptr[u];
+		while(ptr!=NULL)
+		  {
+		    enq(ptr->v);
+		    ptr=ptr->link;
+		    
+		  }
+	      }
+}
+      }
+
+}
+main()
+  {int i,ver,l,c;
+    cahr y;
+  printf("Enter no. of vertex");
+  scanf("%d",&n);
+
+  for(i=1;i<=n;i++)
+    gptr[i]=NULL;
+  //struct graph *ptr=(struct graph *) malloc(sizeof(struct graph));
+  for(i=1;i<=n;i++)
+{
+  printf("Enter the no of vertex linked to %d",i);
+  scanf("%d",&l);
+  printf("Enter value");
+  for(k=0;k<l;k++)
+    {
+      struct graph *ptr = (struct graph *) malloc(sizeof(stuct graph));
+      
+      scanf("%d",&ver);
+      ptr->v=ver;
+      if(gptr[i]==NULL)
+	{
+	  gptr[i]=p;
+	  temp=p;
+	
+	}
+      else
+	{
+	  temp->link=p;
+	  temp=p;
+}
+      
+    }
+
+ }
+  do{
+    printf("MENU\n1.BFS\n2.DFS");
+    scanf("Enter choice:");
+    scanf("%d",%c);
+    switch(c)
+      {
+      case 1:
+	break;
+      case 2:
+	break;
+	
+      }
+    printf("Do you want to continue?");
+    __fpurge(stdin);
+    scanf("%c",&y);
+    
+  }while(y=='y');
+
+  }

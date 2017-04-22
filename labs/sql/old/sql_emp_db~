@@ -1,0 +1,249 @@
+19th aug 2015
+**************
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create table employee18(
+  2  eno varchar(4) primary key,
+  3  ename varchar(15) NOT NULL,
+  4  salary number(9,2),
+  5  dno varchar(4),
+  6  mgr_name varchar(15),
+  7  doj varchar(12),
+  8  job varchar(20),
+  9  addres varchar(10),
+ 10  city varchar(10),
+ 11  pin number(6),
+ 12  constraint c1 check(eno like 'E%'),
+ 13  constraint c2 check(salary<>0),
+ 14  constraint c3 foreign key(dno) references department18 on delete cascade,
+ 15* constraint c4 check(city in ('Cochin','Bombay','Madras','Delhi')))
+SQL> /
+
+Table created.
+
+SQL> describe empolyee18;
+ Name														   Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ENO														   NOT NULL VARCHAR2(4)
+ ENAME														   NOT NULL VARCHAR2(15)
+ SALARY 														    NUMBER(9,2)
+ DNO															    VARCHAR2(4)
+ MGR_NAME														    VARCHAR2(15)
+ DOJ															    VARCHAR2(12)
+ JOB															    VARCHAR2(20)
+ ADDRES 														    VARCHAR2(10)
+ CITY															    VARCHAR2(10)
+ PIN															    NUMBER(6)
+
+##################################################################***
+
+Commit complete.
+SQL> create table department18(dno varchar(4) primary key,dname varchar(10) NOT NULL,cnt_emp number(5),dept_mgr varchar(15));
+
+Table created.
+
+
+SQL> describe department18;
+ Name														   Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ DNO														   NOT NULL VARCHAR2(4)
+ DNAME														   NOT NULL VARCHAR2(10)
+ CNT_EMP														    NUMBER(5)
+ DEPT_MGR														    VARCHAR2(15)
+
+##################################################################*********
+
+9th sept 2015
+**************
+
+SQL> select * from employee18;
+
+ENO  ENAME		 SALARY DNO  MGR_NAME	     DOJ	  JOB		       ADDRES	  CITY		    PIN
+---- --------------- ---------- ---- --------------- ------------ -------------------- ---------- ---------- ----------
+E001 Kiran		  70000 D01  Arun	     09/08/2005   Accountant	       Sreeyam	  Cochin	 682311
+E002 Vaisakh		  50000 D01  Arun	     09/08/2005	  Assistant	       Madathil   Delhi 	 673417
+E003 Karthik		 125000 D02		     04/05/2007   Manager	       Kokkattil  Madras	 794731
+E004 Farhan		 175000 D04		     03/08/2004   Manager	       Aryalayam  Bombay	 834157
+E005 Mridula		 155000 D03		     03/02/2010   Manager	       Kolat	  Cochin	 682311
+E006 Lakshmi		  50000 D03  Mridula	     02/05/2011   Sales Rep	       Melepat	  Cochin	 682311
+E007 Arun		 130000 D01		     03/07/1995   Manager	       Rosevilla  Cochin	 682311
+E008 Alan		  40000 D04  Farhan	     01/07/2009   Creative Head        Heaven	  Bombay	 834157
+
+8 rows selected.
+
+##################################################################*********
+
+SQL> select * from department18;
+
+DNO  DNAME	   CNT_EMP DEPT_MGR
+---- ---------- ---------- ---------------
+D01  Finance		20 Arun
+D02  Sales	       110 Karthik
+D03  Product		75 Mridula
+D04  Publicity		30 Farhan
+
+##################################################################*********
+Q.1
+
+SQL> select ename from employee18 where doj>'01-jan-05' and dno='D04';
+
+ENAME
+---------------
+Alan
+##################################################################******
+
+Q.2
+
+SQL> select * from employee18 where dno<>'D03';
+
+ENO  ENAME		 SALARY DNO  MGR_NAME	     DOJ	  JOB		       ADDRES	  CITY		    PIN
+---- --------------- ---------- ---- --------------- ------------ -------------------- ---------- ---------- ----------
+E001 Kiran		  70000 D01  Arun	     09/08/2005   Accountant	       Sreeyam	  Cochin	 682311
+E002 Vaisakh		  50000 D01  Arun	     09/08/2005	  Assistant	       Madathil   Delhi 	 673417
+E003 Karthik		 125000 D02		     04/05/2007   Manager	       Kokkattil  Madras	 794731
+E004 Farhan		 175000 D04		     03/08/2004   Manager	       Aryalayam  Bombay	 834157
+E007 Arun		 130000 D01		     03/07/1995   Manager	       Rosevilla  Cochin	 682311
+E008 Alan		  40000 D04  Farhan	     01/07/2009   Creative Head        Heaven	  Bombay	 834157
+
+6 rows selected.
+
+*****************************************************************
+
+Q.3
+
+SQL> select ename from employee18 where dno=(select dno from department18 where dname='Sales');
+
+ENAME
+---------------
+Karthik
+
+***************************************************************
+Q.4
+
+SQL> select ename from employee18 where mgr_name='NULL';
+
+ENAME
+---------------
+Karthik
+Farhan
+Mridula
+Arun
+
+*************************************************************
+
+Q.5
+SQL> select ename from employee18 where ename like 'N_v%';
+
+ENAME
+---------------
+Alan
+
+*****************************************************************
+Q.6
+
+SQL>  select * from employee18 where doj like '______2005';
+
+ENO  ENAME		 SALARY DNO  MGR_NAME	     DOJ	  JOB		       ADDRES	  CITY		    PIN
+---- --------------- ---------- ---- --------------- ------------ -------------------- ---------- ---------- ----------
+E001 Kiran		  70000 D01  Arun	     09/08/2005   Accountant	       Sreeyam	  Cochin	 682311
+E002 Vaisakh		  50000 D01  Arun	     09/08/2005   Assistant	       Madathil   Delhi 	 673417
+
+##################################################################******
+Q.7
+
+SQL> select 'Every Year '||ename||' earns '||salary*12 from employee18;
+
+'EVERYYEAR'||ENAME||'EARNS'||SALARY*12
+-------------------------------------------------------------------------
+Every Year Kiran earns 840000
+Every Year Vaisakh earns 600000
+Every Year Karthik earns 1500000
+Every Year Farhan earns 2100000
+Every Year Mridula earns 1860000
+Every Year Lakshmi earns 600000
+Every Year Arun earns 1560000
+Every Year Alan earns 480000
+
+8 rows selected.
+
+
+
+ ##################################################################***
+
+Q.8
+
+SQL>  select count(*) from employee18;
+
+  COUNT(*)
+----------
+	 8
+
+************************************************************
+Q.9
+
+SQL> select job,min(salary) from employee18 group by job;
+
+JOB		     MIN(SALARY)
+-------------------- -----------
+Assistant		   50000
+Manager 		  125000
+Creative Head		   40000
+Sales Rep		   50000
+Accountant		   70000
+
+*****************************************************************
+Q.10
+SQL> select dno,job,min(salary) from employee18 group by job,dno having min(salary)>50000;
+
+DNO  JOB		  MIN(SALARY)
+---- -------------------- -----------
+D01  Accountant 		70000
+D02  Manager		       125000
+D03  Manager		       155000
+D04  Manager		       175000
+D01  Manager		       130000
+
+##################################################################****
+Q.11
+
+SQL> select dno,min(salary) from employee18 group by job,dno having job='Manager';
+
+DNO  MIN(SALARY)
+---- -----------
+D02	  125000
+D03	  155000
+D04	  175000
+D01	  130000
+
+##################################################################****
+Q.12
+SQL> select ename,dname from employee18,department18 where employee18.dno=department18.dno and job='Manager';
+
+ENAME		DNAME
+--------------- ----------
+Karthik		Sales
+Farhan		Publicity
+Mridula		Product
+Arun		Finance
+
+##################################################################
+Q.13
+
+SQL> select ename,to_char(doj,'dd/mm/yy') from employee18;
+
+ENAME		TO_CHAR(
+--------------- --------
+Kiran		09/08/05
+Vaisakh		09/08/05
+Karthik		04/05/07
+Farhan		03/08/04
+Mridula		03/02/10
+Lakshmi 	02/05/11
+Arun		03/07/95
+Alan		01/07/09
+
+8 rows selected.
+
+ 

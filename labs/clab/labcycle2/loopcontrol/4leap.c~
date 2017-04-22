@@ -1,0 +1,18 @@
+#include<stdio.h>
+main()
+{
+  int low,high,j;
+  printf("Enter Starting Year ");
+  scanf("%d",&low);
+  printf("Enter Ending Year");
+  scanf("%d",&high);
+  for(j=low ; j<=high; j++)
+   {
+     if((j%400==0))
+       printf(" %d, ",j);
+       else if((j%4==0))
+	 printf(" %d, ",j);
+	  
+   }
+  printf(" are leap years \n");
+}

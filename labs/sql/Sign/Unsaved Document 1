@@ -1,0 +1,18 @@
+SQL> create sequence accno18
+  increment by 1
+ start with 1001
+  minvalue 1001
+  maxvalue 2000
+  6  order;
+
+Sequence created.
+
+
+
+
+
+
+
+ select br_id from account18 group by br_id having count(*)=(select max(count(distinct br_id)) from branch18);
+
+

@@ -1,0 +1,373 @@
+SQL> CREATE TABLE supplier_details
+2 (sup_code varchar2(5) PRIMARY KEY,
+3 sup_name varchar2(20),
+4 addr varchar2(20),
+5 state varchar2(20));
+
+Table created.
+
+SQL> describe supplier_details;
+Name	 Null? Type
+----------------------------------------- -------- ----------------------------
+SUP_CODE	 NOT NULL VARCHAR2(5)
+SUP_NAME	 VARCHAR2(20)
+ADDR	 VARCHAR2(20)
+STATE	 VARCHAR2(20)
+
+SQL> CREATE TABLE item_details
+2 (item_code varchar2(10) PRIMARY KEY,
+3 item_name varchar2(20),
+4 item_rate number(20),
+5 item_tax_per number(5),
+6 item_type varchar2(20),
+7 item_unit varchar2(20));
+
+Table created.
+
+SQL> describe item_details;
+Name	 Null? Type
+----------------------------------------- -------- ----------------------------
+ITEM_CODE	 NOT NULL VARCHAR2(10)
+ITEM_NAME	 VARCHAR2(20)
+ITEM_RATE	 NUMBER(20)
+ITEM_TAX_PER	 NUMBER(5)
+ITEM_TYPE	 VARCHAR2(20)
+ITEM_UNIT	 VARCHAR2(20)
+
+SQL> CREATE TABLE purchase_details
+2 (sup_code varchar2(5),
+3 item_code varchar2(10),
+4 item_qty number(5),
+5 item_rate number(20),
+6 item_tax_per number(5),
+7 sup_date date,
+8 CONSTRAINT f_key1 FOREIGN KEY(sup_code) REFERENCES supplier_details,
+9 CONSTRAINT f_key2 FOREIGN KEY(item_code) REFERENCES item_details);
+
+Table created.
+
+SQL> describe purchase_details;
+Name	 Null? Type
+----------------------------------------- -------- ----------------------------
+SUP_CODE	 VARCHAR2(5)
+ITEM_CODE	 VARCHAR2(10)
+ITEM_QTY	 NUMBER(5)
+ITEM_RATE	 NUMBER(20)
+ITEM_TAX_PER	 NUMBER(5)
+SUP_DATE	 DATE
+
+
+
+SQL> insert into supplier_details
+2 values('&sup_code','&sup_name','&addr','&state');
+Enter value for sup_code: s1
+Enter value for sup_name: reliance
+Enter value for addr: bandra 
+Enter value for state: MP
+old 2: values('&sup_code','&sup_name','&addr','&state')
+new 2: values('s1','reliance','bandra','MP')
+
+1 row created.
+
+SQL> /
+Enter value for sup_code: s2
+Enter value for sup_name: godrej
+Enter value for addr: noida
+Enter value for state: UP
+old 2: values('&sup_code','&sup_name','&addr','&state')
+new 2: values('s2','godrej','noida','UP')
+
+1 row created.
+
+SQL> s3
+SP2-0042: unknown command "s3" - rest of line ignored.
+SQL> /
+Enter value for sup_code: s3
+Enter value for sup_name: BPL
+Enter value for addr: palakkad
+Enter value for state: kerala
+old 2: values('&sup_code','&sup_name','&addr','&state')
+new 2: values('s3','BPL','palakkad','kerala')
+
+1 row created.
+
+SQL> /
+Enter value for sup_code: s4
+Enter value for sup_name: finolex
+Enter value for addr: banglore
+Enter value for state: karnataka
+old 2: values('&sup_code','&sup_name','&addr','&state')
+new 2: values('s4','finolex','banglore','karnataka')
+
+1 row created.
+
+
+SQL> select *
+2 from supplier_details;
+
+SUP_C SUP_NAME	 ADDR STATE
+----- -------------------- -------------------- --------------------
+s1 reliance	 bandr @electbill.sql;a	 MP
+s2 godrej	 noida	 UP
+s3 BPL	 palakkad	 kerala
+s4 finolex	 banglore	 karnataka
+
+SQL> insert into item_details
+2 values('&item_code','&item_name',&item_rate,&item_tax_per,'&item_type','&item_unit');
+Enter value for item_code: item1
+Enter value for item_name: television
+Enter value for item_rate: 12000
+Enter value for item_tax_per: 10
+Enter value for item_type: electronics
+Enter value for item_unit: NOS
+old 2: values('&item_code','&item_name',&item_rate,&item_tax_per,'&item_type','&item_unit')
+new 2: values('item1','television',12000,10,'electronics','NOS')
+
+1 row created.
+
+SQL> /
+Enter value for item_code: item2
+Enter value for item_name: mobile
+Enter value for item_rate: 5000
+Enter value for item_tax_per: 15
+Enter value for item_type: electronics
+Enter value for item_unit: NOS
+old 2: values('&item_code','&item_name',&item_rate,&item_tax_per,'&item_type','&item_unit')
+new 2: values('item2','mobile',5000,15,'electronics','NOS')
+
+1 row created.
+
+SQL> /
+Enter value for item_code: item3
+Enter value for item_name: soap
+Enter value for item_rate: 15
+Enter value for item_tax_per: 5
+Enter value for item_type: cosmetics
+Enter value for item_unit: BOX
+old 2: values('&item_code','&item_name',&item_rate,&item_tax_per,'&item_type','&item_unit')
+new 2: values('item3','soap',15,5,'cosmetics','BOX')
+
+1 row created.
+
+SQL> /
+Enter value for item_code: item4
+Enter value for item_name: fridge
+Enter value for item_rate: 7500
+Enter value for item_tax_per: 10
+Enter value for item_type: home
+Enter value for item_unit: NOS
+old 2: values('&item_code','&item_name',&item_rate,&item_tax_per,'&item_type','&item_unit')
+new 2: values('item4','fridge',7500,10,'home','NOS')
+
+1 row created.
+
+SQL> /
+Enter value for item_code: item5
+Enter value for item_name: cable
+Enter value for item_rate: 1500 
+Enter value for item_tax_per: 10
+Enter value for item_type: electrical
+Enter value for item_unit: ROU
+old 2: values('&item_code','&item_name',&item_rate,&item_tax_per,'&item_type','&item_unit')
+new 2: values('item5','cable',1500,10,'electrical','ROU')
+
+1 row created.
+
+SQL> select*
+2 from item_details;
+
+ITEM_CODE ITEM_NAME	 ITEM_RATE ITEM_TAX_PER ITEM_TYPE	 ITEM_UNIT
+---------- -------------------- ---------- ------------ -------------------- --------------------
+item1	 television	 12000	 10 electronics	 NOS
+item2	 mobile	 5000	 15 electronics	 NOS
+item3	 soap 15	 5 cosmetics	 BOX
+item4	 fridge	 7500	 10 home	 NOS
+item5	 cable	 1500	 10 electrical	 ROU
+
+SQL> insert into purchase_details
+2 values('&sup_code','&item_code',&item_qty,&item_rate,&item_tax_per,'&sup_date');
+Enter value for sup_code: s1
+Enter value for item_code: item1
+Enter value for item_qty: 10
+Enter value for item_rate: 1000
+Enter value for item_tax_per: 15
+Enter value for sup_date: 1-jan-03
+old 2: values('&sup_code','&item_code',&item_qty,&item_rate,&item_tax_per,'&sup_date')
+new 2: values('s1','item1',10,1000,15,'1-jan-03')
+
+1 row created.
+
+SQL> /
+Enter value for sup_code: s2
+Enter value for item_code: item2
+Enter value for item_qty: 10
+Enter value for item_rate: 10000
+Enter value for item_tax_per: 10
+Enter value for sup_date: 7-aug-05
+old 2: values('&sup_code','&item_code',&item_qty,&item_rate,&item_tax_per,'&sup_date')
+new 2: values('s2','item2',10,10000,10,'7-aug-05')
+
+1 row created.
+
+SQL> s3
+SP2-0042: unknown command "s3" - rest of line ignored.
+SQL> /
+Enter value for sup_code: s3
+Enter value for item_code: item3
+Enter value for item_qty: 5
+Enter value for item_rate: 6000
+Enter value for item_tax_per: 10
+Enter value for sup_date: 8-jan-05
+old 2: values('&sup_code','&item_code',&item_qty,&item_rate,&item_tax_per,'&sup_date')
+new 2: values('s3','item3',5,6000,10,'8-jan-05')
+
+1 row created.
+
+SQL> /
+Enter value for sup_code: s4
+Enter value for item_code: item4
+Enter value for item_qty: 2
+Enter value for item_rate: 15000
+Enter value for item_tax_per: 10
+Enter value for sup_date: 7-jul-05
+old 2: values('&sup_code','&item_code',&item_qty,&item_rate,&item_tax_per,'&sup_date')
+new 2: values('s4','item4',2,15000,10,'7-jul-05')
+
+1 row created.
+
+SQL> select *
+2 from purchase_details;
+
+SUP_C ITEM_CODE ITEM_QTY ITEM_RATE ITEM_TAX_PER SUP_DATE
+----- ---------- ---------- ---------- ------------ ---------
+s1 item1	 10	 1000	 15 01-JAN-03
+s2 item2	 10	 10000	 10 07-AUG-05
+s3 item3	 5	 6000	 10 08-JAN-05
+s4 item4	 2	 15000	 10 07-JUL-05
+
+1)
+SQL> select sup_code,item_code,sup_date,((item_rate+(item_rate*item_tax_per*0.01))*item_qty) "total cost"
+2 from purchase_details;
+
+SUP_C ITEM_CODE SUP_DATE total cost
+----- ---------- --------- ----- -----
+s1 item1	 01-JAN-03	11500
+s2 item2	 07-AUG-05 110000
+s3 item3	 08-JAN-05	33000
+s4 item4	 07-JUL-05	33000
+
+
+
+
+
+
+
+
+
+3)
+SQL> SELECT ITEM_DETAILS.ITEM_NAME
+2 FROM ITEM_DETAILS,PURCHASE_DETAILS
+3 WHERE (ITEM_DETAILS.ITEM_CODE=PURCHASE_DETAILS.ITEM_CODE) AND SUP_DATE BETWEEN '1-JAN-03' AND '7-JAN-05';
+
+ITEM_NAME
+--------------------
+television
+
+4)
+SQL> select supplier_details.sup_name
+2 from supplier_details,purchase_details
+3 where (supplier_details.sup_code=purchase_details.sup_code) and ((item_rate+(item_rate*item_tax_per*.01))*item_qty)>10000;
+
+SUP_NAME
+--------------------
+reliance
+godrej
+BPL
+finolex
+
+
+5)
+SQL> select purchase_details.sup_code,sup_name,purchase_details.item_code,item_name,((purchase_details.item_rate+(purchase_details.item_rate*purchase_details.item_tax_per*.01))*purchase_details.item_qty) "total amount"
+2 from purchase_details,item_details,supplier_details
+3 where (purchase_details.item_code=item_details.item_code) and purchase_details.sup_code=supplier_details.sup_code;
+
+SUP_C SUP_NAME	 ITEM_CODE ITEM_NAME total amount
+----- -------------------- ---------- -------------------- ------------
+s1 reliance	 item1     television	 11500
+s2 godrej	 item2     mobile	 110000
+s3 BPL	         item3     soap	         33000
+s4 finolex	 item4     fridge	 33000
+
+6)
+SQL> ALTER TABLE purchase_details
+2 ADD purchase_code varchar2(10);
+
+Table altered.
+
+SQL> describe purchase_details;
+Name	 Null?	Type
+----------------------------------------------------- -------- ------------------------------------
+SUP_CODE	 VARCHAR2(5)
+ITEM_CODE	 VARCHAR2(10)
+ITEM_QTY	 NUMBER(5)
+ITEM_RATE	 NUMBER(20)
+ITEM_TAX_PER	 NUMBER(5)
+SUP_DATE	 DATE
+PURCHASE_CODE	 VARCHAR2(10)
+
+
+8)
+SQL> select item_details.item_code,item_name,purchase_code,((purchase_details.item_rate+(purchase_details.item_rate*purchase_details.item_tax_per*.01))*purchase_details.item_qty) "total amount",(item_details.item_rate+(item_details.item_rate*item_details.item_tax_per*.01))"total amount2",abs(((purchase_details.item_rate*purchase_details.item_tax_per*.01)+purchase_details.item_rate)-(item_details.item_rate+(item_details.item_rate*item_details.item_tax_per*.01))) "differences
+2 "
+3 from purchase_details,item_details
+4 where (purchase_details.item_rate<>item_details.item_rate) and purchase_details.item_code=item_details.item_code;
+
+ITEM_CODE ITEM_NAME	 PURCHASE_C total amount total amount2 differences
+
+---------- -------------------- ---------- ------------ ------------- ------------
+item1	 television	 p1	 11500 13200	 12050
+item2	 mobile	         p2	 110000 5750	 5250
+item3	 soap            p3	 33000 15.75	 6584.25
+item4	 fridge	         p4	 33000 8250	 8250
+
+==========================================================================================
+CORRECTED
+==========================================================================================
+
+2)
+SQL> SELECT SUP_CODE,SUP_DATE,(ITEM_RATE+ITEM_RATE*.01*ITEM_TAX_PER)*ITEM_QTY "MAXIMUM"
+2 FROM PURCHASE_DETAILS
+3 WHERE (ITEM_RATE+(ITEM_RATE*.01*ITEM_TAX_PER))*ITEM_QTY IN (SELECT MAX((ITEM_RATE+(ITEM_RATE*.01*ITEM_TAX_PER))*ITEM_QTY) FROM PURCHASE_DETAILS);
+
+SUP_C SUP_DATE	 maximum
+----- --------- ----------
+s2 07-AUG-05 110000
+
+==================================================================================================================================================================
+
+7)
+SELECT PURCHASE_DETAILS.SUP_CODE,SUP_NAME,PURCHASE_DETAILS.ITEM_CODE,ITEM_NAME,((ITEM_DETAILS.ITEM_RATE+(ITEM_DETAILS.ITEM_RATE*PURCHASE_DETAILS.ITEM_TAX_PER*.01))*PURCHASE_DETAILS.ITEM_QTY) "TOTAL AMOUNT"
+2 FROM PURCHASE_DETAILS,SUPPLIER_DETAILS,ITEM_DETAILS
+3 WHERE(PURCHASE_DETAILS.SUP_CODE=SUPPLIER_DETAILS.SUP_CODE) AND PURCHASE_DETAILS.ITEM_CODE=ITEM_DETAILS.ITEM_CODE;
+
+SUP_C SUP_NAME	 ITEM_CODE ITEM_NAME total amount
+----- -------------------- ---------- -------------------- ------------
+s1 reliance	 item1     television	 138000
+s2 godrej	 item2     mobile	 55000
+s3 BPL	         item3     soap	         82.5
+s4 finolex	 item4     fridge	 16500
+
+==============================================================================================================================
+================================================================================================================================================
+9)
+SQL> SELECT ITEM_DETAILS.ITEM_NAME,ITEM_DETAILS.ITEM_CODE,PURCHASE_CODE,ABS(((PURCHASE_DETAILS.ITEM_RATE*PURCHASE_DETAILS.ITEM_TAX_PER*.01)+PURCHASE_DETAILS.ITEM_RATE)-(ITEM_DETAILS.ITEM_RATE+(ITEM_DETAILS.ITEM_RATE*ITEM_DETAILS.ITEM_TAX_PER*.01))) "ADD TAX"
+2 FROM PURCHASE_DETAILS,ITEM_DETAILS
+3 WHERE ((PURCHASE_DETAILS.ITEM_TAX_PER*.01)<(ITEM_DETAILS.ITEM_TAX_PER*.01)) AND (ITEM_DETAILS.ITEM_CODE=PURCHASE_DETAILS.ITEM_CODE);
+
+ITEM_NAME	 ITEM_CODE	PURCHASE_C add tax
+-------------------- ---------- ---------- ----------
+mobile	           item2	p2	 5250
+
+================================================================================================================================================
+
+

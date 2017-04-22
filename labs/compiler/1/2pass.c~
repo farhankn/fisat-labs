@@ -1,0 +1,186 @@
+#include<stdio.h>
+#include<string.h>
+main()
+{
+
+
+int SYMTABi[20],LOCCTR=0,start=0,error=0,sym=0,len,j,i,loc,add2,op,k;
+char opcode[10],label[10],operand[10],SYMTABc[20][5],optabc1[20][5],optabc2[20][5],add[20],ch;
+FILE *f1,*f2,*f3,*f7,*f9;
+f1=fopen("input","r");
+f2=fopen("intermediate","w");
+f3=fopen("symtab","w");
+f7=fopen("length","w");
+f9=fopen("sym","w");
+j=0;
+fscanf(f1,"%s%s%s",label,opcode,operand);
+if(!strcmp(opcode,"START"))
+{
+	LOCCTR=atoi(operand);
+}
+start=LOCCTR;
+fprintf(f2,"%s\t%s\t%s\t%s\n",operand,label,opcode,operand);
+fscanf(f1,"%s%s%s",label,opcode,operand);
+while((strcmp(opcode,"END")) && (error==0))
+{
+	if(!strcmp(label,"-"))
+	{
+		fprintf(f2,"%d\t%s\t%s\t%s\n",LOCCTR,label,opcode,operand);
+		LOCCTR+=3;
+	}
+	else
+	{
+		for(i=0;i<sym;i++)
+		{
+			if(!strcmp(label,SYMTABc[i]))
+			{
+				error=1;
+				printf("Duplicate symbol\n");
+				break;
+			}
+		}
+		if(i==sym)
+		{
+			strcpy(SYMTABc[sym],label);
+			SYMTABi[sym]=LOCCTR;
+			sym++;
+		}
+	loc=LOCCTR;
+	if(!strcmp(opcode,"WORD"))
+		{
+			LOCCTR+=3;
+		}
+	else if(!strcmp(opcode,"RESW"))
+		{
+			LOCCTR+=3*atoi(operand);
+		}
+	else if(!strcmp(opcode,"RESB"))
+		{
+			LOCCTR+=atoi(operand);
+		}
+	else if(!strcmp(opcode,"BYTE"))
+		{
+			len=(strlen(operand)-3);
+			LOCCTR+=len;
+		}
+	else
+		LOCCTR+=3;
+	fprintf(f2,"%d\t%s\t%s\t%s\n",loc,label,opcode,operand);
+}
+fscanf(f1,"%s%s%s",label,opcode,operand);
+}
+fprintf(f2,"%d\t%s\t%s\t%s\n",LOCCTR,label,opcode,operand);
+len=LOCCTR-start;
+printf("%d\n",len);
+
+for(i=0;i<sym;i++)
+{
+	fprintf(f3,"%s\t%d\n",SYMTABc[i],SYMTABi[i]);
+}
+fprintf(f7,"%d",len);
+fprintf(f9,"%d",sym);
+fclose(f7);
+fclose(f1);
+fclose(f2);
+fclose(f3);
+fclose(f9);
+printf("Pass 1 completed\n");
+//pass2
+FILE *f4,*f5,*f6,*f8,*f10;
+f4=fopen("intermediate","r");
+f5=fopen("output","w");
+f6=fopen("optab","r");
+f8=fopen("length","r");
+f10=fopen("sym","r");
+fscanf(f8,"%d",&len);
+fscanf(f10,"%d",&sym);
+
+
+fscanf(f4,"%s%s%s%s",add,label,opcode,operand);
+
+if(!strcmp(opcode,"START"))
+{
+fprintf(f5,"H %s %d %d\nT %d %d",label,start,len,start,len);	
+fscanf(f4,"%s%s%s%s",add,label,opcode,operand);
+}
+
+op=0;
+while(fscanf(f6,"%s%s",optabc1[op],optabc2[op])!=EOF)
+{
+	op++;
+}
+while((strcmp(opcode,"END"))&&error==0)
+{
+	for(j=0;j<op;j++)
+	{
+		if(!strcmp(optabc1[j],opcode))
+			break;
+	}
+	if(!strcmp(opcode,"BYTE"))
+	{
+		fprintf(f5," ");
+		for(k=2;k<5;k++)
+		
+			if(operand[k]!='C')
+			{
+				ch=operand[k];
+				fprintf(f5,"%d ",ch);
+			}
+			fprintf(f5," %s ",add);
+		
+	}
+	else if(!strcmp(opcode,"WORD"))
+	{
+		fprintf(f5," ");
+		fprintf(f5, " %s ",operand);
+		fprintf(f5," %s ",add);
+	}
+	else if((j==op)&&(strcmp(opcode,"RESW")))
+		if(strcmp(opcode,"RESB"))
+			{
+				printf("Error in opcode\n");
+			}
+		else
+		{
+			for(i=0;((i<sym) && (strcmp(opcode,"RESW")) && (strcmp(opcode,"RESB")));i++)
+			{
+				if(!strcmp(SYMTABc[i],operand))
+				{
+					break;
+				}
+			}
+			if(i==sym)
+			{
+				add2=0;
+				error=1;
+				printf("Error in symbol\n");
+			}
+			else
+				add2=SYMTABi[i];
+			if(strcmp(opcode,"RESB")&&strcmp(opcode,"RESW"))
+			{
+
+				fprintf(f5,"%s%d",optabc2[j],add2);
+			}
+		}
+	fscanf(f4,"%s%s%s%s",add,label,opcode,operand);
+}
+fprintf(f5,"\nE %d",start);
+
+
+printf("Pass-2 Successfully Completed\n");
+fclose(f8);
+fclose(f4);
+fclose(f5);
+fclose(f6);
+fclose(f10);
+
+
+
+
+
+
+
+
+}
+		

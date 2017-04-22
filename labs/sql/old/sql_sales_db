@@ -1,0 +1,230 @@
+		========================================
+		||  14TH SEPT 2015- SUPPLIER DETAILS  ||
+		========================================
+
+SQL>  CREATE TABLE SUPPLIER_DETAILS18(SUP_CODE VARCHAR(3) PRIMARY KEY,SUP_NAME VARCHAR(10),ADDRESS VARCHAR(10),STATE VARCHAR(10));
+
+TABLE CREATED.
+
+SQL>  DESCRIBE SUPPLIER_DETAILS18;
+ NAME														   NULL?    TYPE
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ SUP_CODE													   NOT NULL VARCHAR2(3)
+ SUP_NAME														    VARCHAR2(10)
+ ADDRESS														    VARCHAR2(10)
+ STATE															    VARCHAR2(10)
+
+SQL> SELECT * FROM SUPPLIER_DETAILS18;
+
+SUP SUP_NAME   ADDRESS	  STATE
+--- ---------- ---------- ----------
+S1  RELIANCE   BANDRA	  MP
+S2  GODREJ     NOIDA	  UP
+S3  BPL        PALAKKAD   KERALA
+S4  FINOLEX    BANGALORE  KARNATAKA
+
+==============================================================================
+
+SQL> CREATE TABLE ITEM_DETAILS18(
+  2  ITEM_CODE VARCHAR(6) PRIMARY KEY,
+  3  ITEM_NAME VARCHAR(15),
+  4  ITEM_RATE NUMBER(6),
+  5  ITEM_TAX NUMBER(3),
+  6  ITEM_TYPE VARCHAR(17),
+  7  ITEM_LIMIT VARCHAR(5));
+
+TABLE CREATED.
+
+SQL> DESCRIBE ITEM_DETAILS18;
+ NAME														   NULL?    TYPE
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ITEM_CODE													   NOT NULL VARCHAR2(6)
+ ITEM_NAME														    VARCHAR2(15)
+ ITEM_RATE														    NUMBER(6)
+ ITEM_TAX														    NUMBER(3)
+ ITEM_TYPE														    VARCHAR2(17)
+ ITEM_LIMIT														    VARCHAR2(5)
+
+ITEM_C ITEM_NAME	ITEM_RATE   ITEM_TAX ITEM_TYPE	       ITEM_
+------ --------------- ---------- ---------- ----------------- -----
+ITEM1  TELEVISION	    12000	  10 ELECTRONICS       NOS
+ITEM2  MOBILE		     5000	  15 ELECTRONICS       NOS
+ITEM3  SOAP		       15	   5 COSMETICS	       BOX
+ITEM4  FRIDGE		     7500	  10 HOME APPLIANCES   NO
+ITEM5  CABLE		     1500	  10 ELECTRICAL        ROLL
+
+
+==============================================================================*
+
+SQL>   CREATE TABLE PURCHASE_DETAILS18(
+  2  SUP_CODE VARCHAR(3) PRIMARY KEY,
+  3  ITEM_CODE VARCHAR(6) ,
+  4  ITEM_QTY NUMBER(3),
+  5  ITEM_RATE NUMBER(6),
+  6  ITEM_TAX NUMBER(3),
+  7  SUP_DATE DATE,
+  8  CONSTRAINT P1 FOREIGN KEY(SUP_CODE) REFERENCES SUPPLIER_DETAILS18 ON DELETE CASCADE ,
+  9 CONSTRAINT P2 FOREIGN KEY(ITEM_CODE) REFERENCES ITEM_DETAILS18 ON DELETE CASCADE );
+
+TABLE CREATED.
+
+
+SQL> DESCRIBE PURCHASE_DETAILS18;
+ NAME														   NULL?    TYPE
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ SUP_CODE													   NOT NULL VARCHAR2(3)
+ ITEM_CODE														    VARCHAR2(6)
+ ITEM_QTY														    NUMBER(3)
+ ITEM_RATE														    NUMBER(6)
+ ITEM_TAX														    NUMBER(3)
+ SUP_DATE														    DATE
+
+SQL> SELECT * FROM PURCHASE_DETAILS18;
+
+SUP ITEM_C   ITEM_QTY  ITEM_RATE   ITEM_TAX SUP_DATE
+--- ------ ---------- ---------- ---------- ---------
+S1  ITEM1	   10	    1000	 15 01-JAN-03
+S2  ITEM2	   10	   10000	 10 07-AUG-05
+S3  ITEM3	    5	    6000	 10 08-AUG-05
+S4  ITEM4	    2	   15000	 10 07-JUL-05
+
+=================================================================================
+
+
+Q1.
+===
+
+SQL> SELECT SUP_CODE,ITEM_CODE,SUP_DATE,ITEM_QTY*(ITEM_RATE+ITEM_TAX*ITEM_RATE*.01)  TOTAL_AMOUNT FROM PURCHASE_DETAILS18;
+
+SUP ITEM_C SUP_DATE  TOTAL_AMOUNT
+--- ------ --------- ------------
+S1  ITEM1  01-JAN-03	    11500
+S2  ITEM2  07-AUG-05	   110000
+S3  ITEM3  08-AUG-05	    33000
+S4  ITEM4  07-JUL-05	    33000
+
+
+=====================================================================*
+Q2.
+===*
+SQL> SELECT SUP_CODE,SUP_DATE,ITEM_QTY*(ITEM_RATE+ITEM_TAX*ITEM_RATE*.01) ITEM_TOT FROM PURCHASE_DETAILS18 WHERE ITEM_QTY*(ITEM_RATE+ITEM_TAX*ITEM_RATE*.01) IN (SELECT MAX(ITEM_QTY*(ITEM_RATE+ITEM_TAX*ITEM_RATE*.01)) FROM PURCHASE_DETAILS18) ;
+
+SUP SUP_DATE  ITEM_TOT
+--- --------- -------------------------------------------
+S2  07-AUG-05 110000
+
+
+==================================================================*
+Q3.
+===
+SQL> SELECT ITEM_NAME FROM ITEM_DETAILS18,PURCHASE_DETAILS18 WHERE ITEM_DETAILS18.ITEM_CODE=PURCHASE_DETAILS18.ITEM_CODE AND SUP_DATE BETWEEN '01-JAN-02' AND '30-JUL-05';
+
+ITEM_NAME
+---------------
+TELEVISION
+FRIDGE
+
+=====================================================================
+
+Q4.
+===
+SQL> SELECT SUP_NAME FROM SUPPLIER_DETAILS18,PURCHASE_DETAILS18 WHERE PURCHASE_DETAILS18.SUP_CODE=SUPPLIER_DETAILS18.SUP_CODE AND ITEM_RATE>7000;
+
+SUP_NAME
+----------
+GODREJ
+FINOLEX
+
+=========================================================*
+Q5.
+===
+SQL>   SELECT PURCHASE_DETAILS18.SUP_CODE,SUP_NAME,PURCHASE_DETAILS18.ITEM_CODE,
+  2   ITEM_NAME,PURCHASE_DETAILS18.ITEM_QTY*PURCHASE_DETAILS18.ITEM_RATE*(1+.01*PURCHASE_DETAILS18.ITEM_TAX) TOTAL_AMOUNT
+  3  FROM PURCHASE_DETAILS18,ITEM_DETAILS18,SUPPLIER_DETAILS18
+  4  WHERE SUPPLIER_DETAILS18.SUP_CODE=PURCHASE_DETAILS18.SUP_CODE
+  5 AND ITEM_DETAILS18.ITEM_CODE=PURCHASE_DETAILS18.ITEM_CODE
+  6  ;
+
+SUP SUP_NAME   ITEM_C ITEM_NAME       TOTAL_AMOUNT
+--- ---------- ------ --------------- ------------
+S1  RELIANCE   ITEM1  TELEVISION	     11500
+S2  GODREJ     ITEM2  MOBILE		    110000
+S3  BPL        ITEM3  SOAP		     33000
+S4  FINOLEX    ITEM4  FRIDGE		     33000
+
+============================================================*
+Q6.
+===
+
+SQL> ALTER TABLE PURCHASE_DETAILS18 ADD P_CODE VARCHAR(4);
+
+TABLE ALTERED.
+
+SQL> DESCRIBE PURCHASE_DETAILS18;
+ NAME														   NULL?    TYPE
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ SUP_CODE													   NOT NULL VARCHAR2(3)
+ ITEM_CODE														    VARCHAR2(6)
+ ITEM_QTY														    NUMBER(3)
+ ITEM_RATE														    NUMBER(6)
+ ITEM_TAX														    NUMBER(3)
+ SUP_DATE														    DATE
+ P_CODE 														    VARCHAR2(4)
+
+===============================================================
+Q7.
+===
+SQL> SELECT PURCHASE_DETAILS18.SUP_CODE,SUP_NAME,PURCHASE_DETAILS18.ITEM_CODE,ITEM_NAME,
+  2  ITEM_QTY*ITEM_DETAILS18.ITEM_RATE*(1+.01*PURCHASE_DETAILS18.ITEM_TAX) TOTAL_AMOUNT
+  3   FROM PURCHASE_DETAILS18,ITEM_DETAILS18,SUPPLIER_DETAILS18
+  4  WHERE SUPPLIER_DETAILS18.SUP_CODE=PURCHASE_DETAILS18.SUP_CODE
+  5   AND ITEM_DETAILS18.ITEM_CODE=PURCHASE_DETAILS18.ITEM_CODE;                    
+
+SUP SUP_NAME   ITEM_C ITEM_NAME       TOTAL_AMOUNT
+--- ---------- ------ --------------- ------------
+S1  RELIANCE   ITEM1  TELEVISION	    138000
+S2  GODREJ     ITEM2  MOBILE		     55000
+S3  BPL        ITEM3  SOAP		      82.5
+S4  FINOLEX    ITEM4  FRIDGE		     16500
+
+
+
+============================================================
+Q8.
+===
+SQL>  SELECT P_CODE,PURCHASE_DETAILS18.ITEM_CODE,ITEM_NAME,
+  2	  ITEM_DETAILS18.ITEM_RATE*(1+.01*ITEM_DETAILS18.ITEM_TAX) ITEM_TOT,
+  3	  PURCHASE_DETAILS18.ITEM_RATE*(1+.01*PURCHASE_DETAILS18.ITEM_TAX) PUR_TOT,
+  4	  ABS((ITEM_DETAILS18.ITEM_RATE*(1+.01*ITEM_DETAILS18.ITEM_TAX))-(PURCHASE_DETAILS18.ITEM_RATE*(1+.01*PURCHASE_DETAILS18.ITEM_TAX))) DIFFERENCE
+  5	 FROM PURCHASE_DETAILS18,ITEM_DETAILS18
+  6	  WHERE ITEM_DETAILS18.ITEM_CODE=PURCHASE_DETAILS18.ITEM_CODE
+  7*	 AND ITEM_DETAILS18.ITEM_RATE<>PURCHASE_DETAILS18.ITEM_RATE
+  8  ;
+
+P_CO ITEM_C ITEM_NAME	      ITEM_TOT	  PUR_TOT DIFFERENCE
+---- ------ --------------- ---------- ---------- ----------
+P01  ITEM1  TELEVISION		 13200	     1150      12050
+P02  ITEM2  MOBILE		  5750	    11000	5250
+P03  ITEM3  SOAP		 15.75	     6600    6584.25
+P04  ITEM4  FRIDGE		  8250	    16500	8250
+
+
+============================================================**
+
+Q9.
+===
+
+SQL>  SELECT P_CODE,ITEM_NAME,PURCHASE_DETAILS18.ITEM_CODE,
+  2  ((PURCHASE_DETAILS18.ITEM_RATE*(1+PURCHASE_DETAILS18.ITEM_TAX*.01))-(ITEM_DETAILS18.ITEM_RATE*(1+ITEM_DETAILS18.ITEM_TAX*.01))) TAX_DIFF
+  3  FROM PURCHASE_DETAILS18,ITEM_DETAILS18
+  4  WHERE ITEM_DETAILS18.ITEM_CODE=PURCHASE_DETAILS18.ITEM_CODE
+  5  AND ITEM_DETAILS18.ITEM_TAX>PURCHASE_DETAILS18.ITEM_TAX
+  6  ;
+
+P_CO ITEM_NAME	     ITEM_C   TAX_DIFF
+---- --------------- ------ ----------
+P02  MOBILE	     ITEM2	  5250
+
+
+============================================================**
+

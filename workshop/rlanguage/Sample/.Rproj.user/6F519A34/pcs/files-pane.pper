@@ -1,0 +1,9 @@
+{
+    "path" : "~/Sample",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

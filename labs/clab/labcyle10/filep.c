@@ -1,0 +1,67 @@
+//To find the palindrome words in a file and store it in another file
+
+#include<stdio.h>
+int pal(char []);
+main()
+{
+	char a[30],c;
+	int i,f;
+	FILE *ptr,*ptr1;
+	ptr= fopen("new","r");
+	if(ptr==NULL)
+	{
+		printf("Cannot open source file\n");
+		exit(0);
+	}
+	ptr1=fopen("palin.txt","w");
+	if(ptr1==NULL)
+	{
+		printf("Cannot open destination file\n");
+		exit(0);
+	}
+	while(1)
+	{
+		c=fgetc(ptr);
+		for(i=0;c!=EOF && (c>='a'&& c<='z') || (c>='A' && c<='Z');i++)
+		{
+		 a[i]=c;
+		 c=fgetc(ptr);
+		}
+		a[i]='\0';
+		if(strlen(a)>1)		
+		{
+		f=pal(a);
+		if(f==0)
+		{fputs(a,ptr1);
+		fputc(' ',ptr1);}
+		}
+	        if(c==EOF)
+		break;
+	}
+	fclose(ptr);
+	fclose(ptr1);
+}
+int pal(char a[])
+{
+	int i,l,j,f=0;
+	char b[40];
+	for(i=0;a[i]!='\0';i++);
+	l=i;
+	j=l-1;i=0;
+        while(j>=0 && i<l)
+        {
+                b[j]=a[i];
+		j--;	
+		i++;
+	}
+	b[i]='\0';
+        puts(b);
+	i=0;f=0;
+	while(b[i]!='\0')
+	{
+		if(a[i]!=b[i])
+		f=1;
+		i++;
+	}
+	return f;
+}

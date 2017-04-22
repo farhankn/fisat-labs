@@ -1,0 +1,18 @@
+echo "Enter the number : "
+read n
+
+fact()
+{
+    if(($1==0))
+    then
+	res=1
+    else
+	expr=$(($1-1))
+	fact $expr
+	res=$((res*($1)))
+    fi
+}
+
+fact $n
+
+echo $res

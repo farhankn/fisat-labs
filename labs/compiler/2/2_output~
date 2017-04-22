@@ -1,0 +1,11 @@
+
+void main() 
+{
+
+int a,b,c,area ;
+area = c + 3.14 ;
+ c=a+b  ;
+ c=a*b  ;
+a = a+ 3.14 ;
+
+}
